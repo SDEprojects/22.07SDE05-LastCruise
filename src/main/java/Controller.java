@@ -9,15 +9,17 @@ public class Controller {
     public void gameSetUp(){
       String name = null;
       System.out.println(view.getGameBanner());
-      System.out.println(view.getInstructions());
+
       System.out.println(view.getHelpCommands());
       try{
         System.out.println(view.getNamePrompt());
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         name = reader.readLine();
         name.trim();
+        System.out.printf(view.getStoryIntro(), name);
 
-        System.out.println(name);
+        System.out.println(view.getInstructions());
+        System.out.printf(view.getStatusBanner(), "Test Current Location", "[Test Item]");
       }catch (IOException e){
         throw new RuntimeException(e);
       }
