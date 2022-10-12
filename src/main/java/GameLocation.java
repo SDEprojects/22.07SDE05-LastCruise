@@ -3,8 +3,17 @@ import java.util.List;
 public abstract class GameLocation {
     String locationName;
     String locationDescription;
+
     private List<Item> locationItems;
 
+    // Constructors
+
+    public GameLocation(String locationName, String locationDescription) {
+        this.locationName = locationName;
+        this.locationDescription = locationDescription;
+    }
+
+    // Accessors
     public String getLocationName() {
         return locationName;
     }
