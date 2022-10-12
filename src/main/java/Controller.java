@@ -9,6 +9,7 @@ public class Controller {
     public void gameSetUp(){
       String name = null;
       System.out.println(view.getGameBanner());
+      System.out.println(view.getStory());
 
       System.out.println(view.getHelpCommands());
       try{
