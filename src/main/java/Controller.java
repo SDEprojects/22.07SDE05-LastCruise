@@ -11,6 +11,7 @@ public class Controller {
     String input = null;
     boolean start = false;
     System.out.println(view.getGameBanner());
+    System.out.println(view.getStory());
     System.out.println(view.getHelpCommands());
     System.out.println(view.getInstructions());
     try{
