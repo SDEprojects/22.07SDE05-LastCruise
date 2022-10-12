@@ -6,10 +6,10 @@ public class View {
       + "░░░██║░░░███████║█████╗░░  ██║░░░░░███████║╚█████╗░░░░██║░░░  ██║░░╚═╝██████╔╝██║░░░██║██║╚█████╗░█████╗░░\n"
       + "░░░██║░░░██╔══██║██╔══╝░░  ██║░░░░░██╔══██║░╚═══██╗░░░██║░░░  ██║░░██╗██╔══██╗██║░░░██║██║░╚═══██╗██╔══╝░░\n"
       + "░░░██║░░░██║░░██║███████╗  ███████╗██║░░██║██████╔╝░░░██║░░░  ╚█████╔╝██║░░██║╚██████╔╝██║██████╔╝███████╗\n"
-      + "░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ╚══════╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░  ░╚════╝░╚═╝░░╚═╝░╚═════╝░╚═╝╚═════╝░╚══════╝";
+      + "░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ╚══════╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░  ░╚════╝░╚═╝░░╚═╝░╚═════╝░╚═╝╚═════╝░╚══════╝\n";
 
-  private final String instructions = "INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands";
-  private final String helpCommands = "Commands: \n"
+  private final String instructions = "INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands\n";
+  private final String helpCommands = "Help Commands: \n"
       + "To navigate type : 'go [north, south, east, west]' \n"
       + "To grab items type: 'grab [item name]'\n"
       + "To craft an item type: 'craft [item name]'\n"
