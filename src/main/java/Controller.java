@@ -34,13 +34,14 @@ public class Controller {
       name = reader.readLine();
       name.trim();
       System.out.printf(view.getStoryIntro(), name);
-      System.out.printf(view.getStatusBanner(), "Test Current Location", "[Test Item]");
+
     }catch (IOException e){
       throw new RuntimeException(e);
     }
   }
 
   public boolean getCommand(){
+    System.out.printf(view.getStatusBanner(), "Test Current Location", "[Test Item]");
     String[] command;
     String input = null;
     try{
@@ -48,9 +49,12 @@ public class Controller {
       input = reader.readLine();
       input = input.toLowerCase().trim();
       command = input.split("\\s+");
-      System.out.println(Arrays.toString(command));
+
     }catch (IOException e){
       throw new RuntimeException(e);
+    }
+    if(command[0].equals("help")){
+      System.out.println(view.getHelpCommands());
     }
     return !command[0].equals("quit");
   }
