@@ -1,3 +1,5 @@
+package com.lastcruise.view;
+
 public class View {
 
   private final String gameBanner = "\n"

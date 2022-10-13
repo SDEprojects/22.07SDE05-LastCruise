@@ -1,6 +1,7 @@
-import java.io.BufferedReader;
+package com.lastcruise;
+
+import com.lastcruise.controller.Controller;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Main {
 

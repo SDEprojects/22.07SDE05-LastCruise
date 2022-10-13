@@ -1,3 +1,5 @@
+package com.lastcruise.model;
+
 public abstract class GameCharacter {
     private String name;
 

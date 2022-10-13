@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.List;
+package com.lastcruise.model;
 
 public class Game {
     private GameCharacter player;

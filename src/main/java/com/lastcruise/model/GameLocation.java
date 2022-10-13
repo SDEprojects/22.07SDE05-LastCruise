@@ -1,3 +1,5 @@
+package com.lastcruise.model;
+
 import java.util.List;
 
 public abstract class GameLocation {
