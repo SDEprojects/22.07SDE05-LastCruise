@@ -1,36 +1,36 @@
 import java.util.List;
 
 public abstract class GameLocation {
-    String locationName;
-    String locationDescription;
+    String name;
+    String description;
 
-    private List<Item> locationItems;
+    private List<Item> items;
 
     // Constructors
 
-    public GameLocation(String locationName, String locationDescription) {
-        this.locationName = locationName;
-        this.locationDescription = locationDescription;
+    public GameLocation(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     // Accessors
-    public String getLocationName() {
-        return locationName;
+    public String getName() {
+        return name;
     }
 
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLocationDescription() {
-        return locationDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLocationDescription(String locationDescription) {
-        this.locationDescription = locationDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<Item> getLocationItems() {
-        return locationItems;
+    public List<Item> getItems() {
+        return items;
     }
 }

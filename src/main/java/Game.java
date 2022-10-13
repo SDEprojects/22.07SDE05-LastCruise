@@ -1,12 +1,23 @@
+import java.util.HashMap;
 import java.util.List;
 
 public class Game {
-    GameCharacter player;
-    GameMap gameMap;
+    private GameCharacter player;
+    private GameMap gameMap;
+    private GameLocation currentLocation;
 
-    public Game(String playerName, List<GameLocation> locations) {
-        GameLocation startingLocation = locations.get(0);
-        this.player = new Player(playerName, startingLocation);
-        this.gameMap = new GameMap(locations);
+    public Game(String playerName) {
+        this.gameMap = new GameMap();
+        this.player = new Player(playerName);
+        GameLocation startingLocation = gameMap.getLocations().get("Beach");
+        setCurrentLocation(startingLocation);
+    }
+
+    public GameLocation getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(GameLocation currentLocation) {
+        this.currentLocation = currentLocation;
     }
 }
