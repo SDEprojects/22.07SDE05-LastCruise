@@ -17,7 +17,7 @@ public class Controller {
   private Game game;
 
   public boolean gameSetUp(){
-    String input = null;
+    String input;
     boolean start = false;
     System.out.println(view.getGameBanner());
     System.out.println(view.getStory());
@@ -68,14 +68,18 @@ public class Controller {
     }catch (IOException e){
       throw new RuntimeException(e);
     }
+    // CHECKS FOR VALID COMMAND
     if(!isValidCommand(command[0])){
       System.out.println("Invalid command\n");
       System.out.println(view.getHelpCommands());
     }
-
+    // HELP COMMAND
     if(command[0].equals(Commands.HELP.getValue())){
       System.out.println(view.getHelpCommands());
     }
+
+
+    // QUIT COMMAND
     return !command[0].equals(Commands.QUIT.getValue());
   }
 
