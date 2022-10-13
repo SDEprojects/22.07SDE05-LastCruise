@@ -1,3 +1,5 @@
+package com.lastcruise.model;
+
 import java.util.HashMap;
 
 public class GameMap {
