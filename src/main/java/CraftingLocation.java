@@ -8,7 +8,7 @@ public class CraftingLocation extends GameLocation{
     }
 
     public boolean buildRaft(){
-        List<Item> locationItems = getLocationItems();
+        List<Item> locationItems = getItems();
 
         // check if locationItems contains necessary items
 

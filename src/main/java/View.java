@@ -30,7 +30,7 @@ public class View {
       + "Shipwreck! You jump in the water and swim to the nearest land\n\n";
 
   private final String statusBanner = "_________________________________________________________%n"
-                                      + "Location: %s          Inventory: %s%n";
+      + "Location: %s          Inventory: %s%n";
 
 
   public String getGameBanner() {
