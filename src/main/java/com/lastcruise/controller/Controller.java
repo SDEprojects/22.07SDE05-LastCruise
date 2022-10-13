@@ -58,7 +58,7 @@ public class Controller {
   public boolean getCommand(){
     System.out.printf(view.getStatusBanner(), game.getCurrentLocation().getName(), game.getCurrentLocation().getItems());
     String[] command;
-    String input = null;
+    String input;
     try{
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
       input = reader.readLine();
