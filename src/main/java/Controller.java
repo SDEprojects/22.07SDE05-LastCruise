@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 
+
 public class Controller {
   View view = new View();
   private static final String LEVEL = "1";
@@ -64,6 +65,4 @@ public class Controller {
     }
     return !command[0].equals("quit");
   }
-
-
 }
