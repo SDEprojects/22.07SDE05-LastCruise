@@ -14,7 +14,8 @@ public class View {
   }
 
   public String getStory() {
-    return "Board the Maximus Ship, and journey into an exciting world.\n"
+    return "INTRODUCTION:\n "
+          + "Board the Maximus Ship, and journey into an exciting world.\n"
           + "The Maximus will hit an iceberg but you will survive the shipwreck.\n"
           + "Swim to a nearby island where you have to rely on your navigation skills, strategy and survival instinct to survive and escape the island.  \n"
           + "The only way to escape the island and win the game is to explore the island, gather useful items, return to the beach, and build a raft.\n";
