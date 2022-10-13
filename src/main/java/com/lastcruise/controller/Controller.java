@@ -1,10 +1,12 @@
 package com.lastcruise.controller;
 
+import com.lastcruise.model.Commands;
 import com.lastcruise.model.Game;
 import com.lastcruise.view.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLOutput;
 import java.util.Arrays;
 
 
@@ -62,10 +64,29 @@ public class Controller {
       input = reader.readLine();
       input = input.toLowerCase().trim();
       command = input.split("\\s+");
-      System.out.println(Arrays.toString(command));
+
     }catch (IOException e){
       throw new RuntimeException(e);
     }
-    return !command[0].equals("quit");
+    if(!isValidCommand(command[0])){
+      System.out.println("Invalid command\n");
+      System.out.println(view.getHelpCommands());
+    }
+
+    if(command[0].equals(Commands.HELP.getValue())){
+      System.out.println(view.getHelpCommands());
+    }
+    return !command[0].equals(Commands.QUIT.getValue());
+  }
+
+  // returns false if command is not found in the Commands enum
+  private boolean isValidCommand(String input) {
+      for(Commands c : Commands.values()){
+        if(c.getValue().equals(input)){
+           return true;
+        }
+      }
+      return false;
   }
 }
+
