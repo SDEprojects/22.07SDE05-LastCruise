@@ -11,13 +11,8 @@ public class Main {
       boolean runGame = controller.gameSetUp();
 
       while(runGame){
-
         runGame = controller.getCommand();
       }
       System.out.println("Thanks for playing!");
   }
-
-
-
-
 }

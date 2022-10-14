@@ -54,7 +54,7 @@ public class Controller {
   }
 
   public boolean getCommand() {
-    view.printStatusBanner(game.getCurrentLocationName(), "[]", game.getCurrentLocationDesc() );
+    view.printStatusBanner(game.getCurrentLocationName(), "[]", game.getCurrentLocationDesc());
     String[] command;
     String input;
     try {
@@ -75,7 +75,7 @@ public class Controller {
     if (command[0].equals(Commands.HELP.getValue())) {
       System.out.println(view.getHelpCommands());
 
-    // GO COMMAND
+      // GO COMMAND
     } else if (command[0].equals(Commands.GO.getValue())) {
       game.moveLocation(command);
     }

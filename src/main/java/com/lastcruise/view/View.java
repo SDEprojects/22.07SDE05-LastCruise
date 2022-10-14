@@ -54,7 +54,7 @@ public class View {
 
   public void printStatusBanner(String location, String inventory, String locationDesc){
     System.out.printf("_________________________________________________________%n"
-                      + "Location: %s          Inventory: %s%n%n Description:%n%s", location, inventory, locationDesc);
+                      + "Location: %s          Inventory: %s%n Description: %s%n>", location, inventory, locationDesc);
   }
 
   public void printNamePrompt(){
@@ -70,8 +70,9 @@ public class View {
   }
 
   public void clearConsole(){
-    for(int i =0; i< 100; i++){
+    for(int i =0; i< 50; i++){
       System.out.println();
     }
+
   }
 }
