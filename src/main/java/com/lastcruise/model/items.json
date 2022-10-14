@@ -1,11 +1,30 @@
 [
-    { "name": "log",
-      "description": "log description"
-    },
-    { "name": "rope",
-      "description": "rope description"
-    },
-    { "name": "machete",
-      "description": "machete description"
-    }
+  {
+    "name": "log",
+    "description": "a long piece of wood. You need something sharp to cut it down"
+  },
+  {
+    "name": "rope",
+    "description": "a sturdy rope hanging from a tree"
+  },
+  {
+    "name": "machete",
+    "description": "sharp metal machete that can be used to cut items"
+  },
+  {
+    "name": "paddle",
+    "description": "an old brown paddle floating in the lake. It is still in good condition"
+  },
+  {
+    "name": "cloth",
+    "description": "old dirty cloth caught in between two rocks"
+  },
+  {
+    "name": "rocks",
+    "description": "a pile of slippery rocks"
+  },
+  {
+    "name": "steel pipe",
+    "description": "a steel pipe that may have been used as mining tool"
+  }
 ]

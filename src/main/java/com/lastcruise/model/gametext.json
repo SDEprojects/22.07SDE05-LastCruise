@@ -1,0 +1,23 @@
+  {
+    "Banner": "\n████████╗██╗░░██╗███████╗  ██╗░░░░░░█████╗░░██████╗████████╗  ░█████╗░██████╗░██╗░░░██╗██╗░██████╗███████╗\n╚══██╔══╝██║░░██║██╔════╝  ██║░░░░░██╔══██╗██╔════╝╚══██╔══╝  ██╔══██╗██╔══██╗██║░░░██║██║██╔════╝██╔════╝\n░░░██║░░░███████║█████╗░░  ██║░░░░░███████║╚█████╗░░░░██║░░░  ██║░░╚═╝██████╔╝██║░░░██║██║╚█████╗░█████╗░░\n░░░██║░░░██╔══██║██╔══╝░░  ██║░░░░░██╔══██║░╚═══██╗░░░██║░░░  ██║░░██╗██╔══██╗██║░░░██║██║░╚═══██╗██╔══╝░░\n░░░██║░░░██║░░██║███████╗  ███████╗██║░░██║██████╔╝░░░██║░░░  ╚█████╔╝██║░░██║╚██████╔╝██║██████╔╝███████╗\n░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ╚══════╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░  ░╚════╝░╚═╝░░╚═╝░╚═════╝░╚═╝╚═════╝░╚══════╝\n",
+
+    "Intro" : "INTRODUCTION:\nBoard the Maximus Ship, and journey into an exciting world.\nThe Maximus will hit an iceberg but you will survive the shipwreck.\nSwim to a nearby island where you have to rely on your navigation skills, strategy and survival instinct to survive and escape the island. \nThe only way to escape the island and win the game is to explore the island, gather useful items, return to the beach, and build a raft.\n",
+
+    "Help" : "Help Commands: \nTo navigate type : 'go [north, south, east, west]' \nTo grab items type: 'grab [item name]'\nTo craft an item type: 'craft [item name]'\nTo inspect an item type: 'inspect [item name]'\n",
+
+    "StoryIntro" : "Welcome aboard %s. We are expecting to arrive in a few hours.%n%nA few hours later......%n%n%nCaptain: Attention Passengers! There is a bad storm a head of us. We can't turn the ship around%nCaptain: MAYDAY! MAYDAY! MAYDAY!%nShipwreck! You jump in the water and swim to the nearest land%n%n",
+
+    "Instructions" : "INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands. You can 'quit' at anytime\n",
+
+    "Status":"_________________________________________________________%nLocation: %s          Inventory: %s%n%nDescription: %s %nLocation Items: %s %n%n>",
+
+    "StartGamePrompt" : "Would you like to start the game? enter ('yes' or 'no') ",
+
+    "NamePrompt" : "\nCaptain : Welcome Aboard Ship Maximus! May I have your name: ",
+
+    "InvalidCommand": "Invalid command entered",
+
+    "ItemNotFound": "Item not found at this location",
+
+    "ItemDescription": "%nItem Description: %s%n"
+  }
