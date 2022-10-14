@@ -14,6 +14,8 @@ public class GameMap {
 
   private GameLocation currentLocation;
 
+  private String currentItemDescription;
+
   // Constructors
   public GameMap() {
 

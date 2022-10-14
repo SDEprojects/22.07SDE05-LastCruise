@@ -36,4 +36,13 @@ public class Game {
     public void moveLocation(String[] direction){
         gameMap.updateCurrentLocation(direction);
     }
+
+    public String inspectItem(String[] command){
+        String item = command[1].toLowerCase();
+        if(getCurrentLocationItems().containsKey(item)){
+           return getCurrentLocationItems().get(item).getDescription();
+        }
+            return null;
+
+    }
 }
