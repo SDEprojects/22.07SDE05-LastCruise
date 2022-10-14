@@ -21,13 +21,6 @@ public class View {
         + "The only way to escape the island and win the game is to explore the island, gather useful items, return to the beach, and build a raft.\n");
   }
 
-  public String getHelpCommands() {
-    return "Help Commands: \n"
-          + "To navigate type : 'go [north, south, east, west]' \n"
-          + "To grab items type: 'grab [item name]'\n"
-          + "To craft an item type: 'craft [item name]'\n"
-          + "To inspect an item type: 'inspect [item name]'\n";
-  }
 
   public void printHelpCommands(){
     System.out.println("Help Commands: \n"
@@ -61,7 +54,7 @@ public class View {
   }
 
   public void printItemDescription(String description){
-    System.out.printf("Item Description: %s", description);
+    System.out.printf("%nItem Description: %s%n", description);
   }
 
   public void printNamePrompt(){
@@ -74,6 +67,10 @@ public class View {
 
   public void printInvalidCommandMessage(){
     System.out.println("Invalid command entered");
+  }
+
+  public void printInvalidItemMessage(){
+    System.out.println("Item not found at this location");
   }
 
   public void clearConsole(){

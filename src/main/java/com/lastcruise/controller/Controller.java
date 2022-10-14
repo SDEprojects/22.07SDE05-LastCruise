@@ -15,6 +15,8 @@ public class Controller {
   private String name;
   private Game game;
 
+  private boolean hasItemDescription = false;
+
   public boolean gameSetUp() {
     String input;
     boolean start = false;
@@ -54,7 +56,7 @@ public class Controller {
   }
 
   public boolean getCommand() {
-    view.printStatusBanner(game.getCurrentLocationName(), "[]", game.getCurrentLocationDesc(), game.getCurrentLocationItems().keySet().toString());
+    updateView();
     String[] command;
     String input;
     try {
@@ -67,17 +69,26 @@ public class Controller {
       throw new RuntimeException(e);
     }
     // CHECKS FOR VALID COMMAND
-    if (!isValidCommand(command[0])) {
+    if (!isValidCommand(command)) {
       view.printInvalidCommandMessage();
       view.printHelpCommands();
-    }
-    // HELP COMMAND
-    if (command[0].equals(Commands.HELP.getValue())) {
-      System.out.println(view.getHelpCommands());
 
-      // GO COMMAND
-    } else if (command[0].equals(Commands.GO.getValue())) {
-      game.moveLocation(command);
+    }
+    else {
+        // HELP COMMAND
+        if (command[0].equals(Commands.HELP.getValue())) {
+          view.printHelpCommands();
+
+          // GO COMMAND
+        } else if (command[0].equals(Commands.GO.getValue())) {
+          game.moveLocation(command);
+
+          // INSPECT COMMAND
+        } else if (command[0].equals(Commands.INSPECT.getValue())) {
+          if (game.inspectItem(command) != null) {
+            view.printItemDescription(game.inspectItem(command));
+          }
+        }
     }
 
     // QUIT COMMAND
@@ -85,13 +96,22 @@ public class Controller {
   }
 
   // returns false if command is not found in the Commands enum
-  private boolean isValidCommand(String input) {
+  private boolean isValidCommand(String[] command) {
+    if (command.length < 2){
+       return false;
+    }
     for (Commands c : Commands.values()) {
-      if (c.getValue().equals(input)) {
+      if (c.getValue().equals(command[0])) {
         return true;
       }
     }
     return false;
+  }
+
+  public void updateView() {
+    view.printStatusBanner(game.getCurrentLocationName(), "[]", game.getCurrentLocationDesc(),
+        game.getCurrentLocationItems().keySet().toString());
+
   }
 }
 
