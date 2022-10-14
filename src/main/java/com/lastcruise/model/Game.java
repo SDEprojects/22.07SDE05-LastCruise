@@ -24,6 +24,10 @@ public class Game {
         return gameMap.getCurrentLocation().getName();
     }
 
+    public String getCurrentLocationDesc(){
+        return gameMap.getCurrentLocation().getDescription();
+    }
+
     public Map<String, Item> getCurrentLocationItems(){
         return gameMap.getCurrentLocation().getItems();
     }

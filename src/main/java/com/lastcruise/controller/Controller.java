@@ -18,19 +18,19 @@ public class Controller {
   public boolean gameSetUp() {
     String input;
     boolean start = false;
-    System.out.println(view.getGameBanner());
-    System.out.println(view.getStory());
-    System.out.println(view.getHelpCommands());
-    System.out.println(view.getInstructions());
+    view.printGameBanner();
+    view.printStory();
+    view.printHelpCommands();
+    view.printInstructions();
     try {
-      System.out.println("Would you like to start the game? enter ('yes' or 'no') ");
+      view.printStartGamePrompt();
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
       input = reader.readLine();
       input.toLowerCase().trim();
       if (input.equals("yes")) {
         start = true;
         getPlayerName();
-        System.out.printf(view.getStoryIntro(), name);
+        view.printStoryIntro(name);
         game = new Game(name);
       }
     } catch (IOException e) {
@@ -42,7 +42,7 @@ public class Controller {
 
   public void getPlayerName() {
     try {
-      System.out.println(view.getNamePrompt());
+      view.printNamePrompt();
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
       name = reader.readLine();
       name.trim();
@@ -54,8 +54,7 @@ public class Controller {
   }
 
   public boolean getCommand() {
-    System.out.printf(view.getStatusBanner(), game.getCurrentLocationName(),
-        "[]");
+    view.printStatusBanner(game.getCurrentLocationName(), "[]", game.getCurrentLocationDesc() );
     String[] command;
     String input;
     try {
