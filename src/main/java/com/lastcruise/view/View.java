@@ -14,7 +14,7 @@ public class View {
   }
 
   public void printStory(){
-    System.out.println("INTRODUCTION:\n "
+    System.out.println("INTRODUCTION:\n"
         + "Board the Maximus Ship, and journey into an exciting world.\n"
         + "The Maximus will hit an iceberg but you will survive the shipwreck.\n"
         + "Swim to a nearby island where you have to rely on your navigation skills, strategy and survival instinct to survive and escape the island.  \n"
@@ -52,13 +52,20 @@ public class View {
   }
 
 
-  public void printStatusBanner(String location, String inventory, String locationDesc){
+  public void printStatusBanner(String location, String inventory, String locationDesc, String locationItems){
     System.out.printf("_________________________________________________________%n"
-                      + "Location: %s          Inventory: %s%n Description: %s%n>", location, inventory, locationDesc);
+                      + "Location: %s          Inventory: %s%n%n"
+                      + "Description: %s %n"
+                      + "Location Items: %s %n"
+                      + "%n>", location, inventory, locationDesc, locationItems);
+  }
+
+  public void printItemDescription(String description){
+    System.out.printf("Item Description: %s", description);
   }
 
   public void printNamePrompt(){
-    System.out.print("Captain : Welcome Aboard Ship Maximus! May I have your name : ");
+    System.out.print("\nCaptain : Welcome Aboard Ship Maximus! May I have your name: ");
   }
 
   public void printStartGamePrompt(){

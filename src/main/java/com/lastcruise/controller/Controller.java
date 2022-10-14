@@ -54,7 +54,7 @@ public class Controller {
   }
 
   public boolean getCommand() {
-    view.printStatusBanner(game.getCurrentLocationName(), "[]", game.getCurrentLocationDesc());
+    view.printStatusBanner(game.getCurrentLocationName(), "[]", game.getCurrentLocationDesc(), game.getCurrentLocationItems().keySet().toString());
     String[] command;
     String input;
     try {
