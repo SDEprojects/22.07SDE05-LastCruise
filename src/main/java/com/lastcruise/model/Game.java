@@ -1,27 +1,35 @@
 package com.lastcruise.model;
 
+import java.util.List;
+import java.util.Map;
+
 public class Game {
     private final GameCharacter player;
     private final GameMap gameMap;
 
+    private static final  String STARTING_LOCATION = "BEACH";
 
     public Game(String playerName) {
         this.gameMap = new GameMap();
         this.player = new Player(playerName);
-        GameLocation startingLocation = gameMap.getLocations().get("Beach");
+        gameMap.setStartLocation(gameMap.getLocations().get(STARTING_LOCATION));;
 
     }
 
-//    public GameLocation getCurrentLocation() {
-//        return gameMap.getCurrentLocation();
-//    }
-//
-//    public String getCurrentLocationName(){
-//        return gameMap.getCurrentLocation().getName();
-//    }
-//
-//
-//    public void move(String[] direction){
-//        gameMap.updateCurrentLocation(direction);
-//    }
+    public GameLocation getCurrentLocation() {
+        return gameMap.getCurrentLocation();
+    }
+
+    public String getCurrentLocationName(){
+        return gameMap.getCurrentLocation().getName();
+    }
+
+    public Map<String, Item> getCurrentLocationItems(){
+        return gameMap.getCurrentLocation().getItems();
+    }
+
+
+    public void moveLocation(String[] direction){
+        gameMap.updateCurrentLocation(direction);
+    }
 }
