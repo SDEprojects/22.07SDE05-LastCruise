@@ -39,7 +39,7 @@
     "name": "OLD MINE",
     "description": "Abandoned for centuries, this mine smells like scummy standing water.\n It has rough rock walls, with thick cracked support beams every few meters down the shaft. Pieces of metal are scattered around; an old machete and several steel pipes can be seen a few meters from the entrance.\n An object that appears to be the size of a needle can be seen at the bottom of the shaft.\n As you descend to the bottom of the shaft, the object turns out to be a flashlight. ",
     "items": [
-      "steel pipe",
+      "steelpipe",
       "machete"
     ],
     "east": "JUNGLE"
