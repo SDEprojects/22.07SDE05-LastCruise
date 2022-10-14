@@ -1,0 +1,15 @@
+[
+    {
+      "name": "BEACH",
+      "description": "This is a beach description",
+      "items": [],
+      "north": "JUNGLE",
+      "craftingLocation": true
+    },
+    {
+      "name": "JUNGLE",
+      "description": "This is a Jungle description",
+      "items": ["log", "rope"],
+      "south": "BEACH"
+    }
+]
