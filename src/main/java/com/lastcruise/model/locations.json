@@ -1,15 +1,48 @@
 [
-    {
-      "name": "BEACH",
-      "description": "This is a beach description",
-      "items": [],
-      "north": "JUNGLE",
-      "craftingLocation": true
-    },
-    {
-      "name": "JUNGLE",
-      "description": "This is a Jungle description",
-      "items": ["log", "rope"],
-      "south": "BEACH"
-    }
+  {
+    "name": "BEACH",
+    "description": "There are sights of beautiful birds that fly all over the dry shore land and over the seawaters. Wind blowing strongly, and waves crashing against the shore. As you stroll along, you can feel the soft smooth green sand under your feet. The sand is very hot and walking through it feels like you are walking on a burning grill. You must brave the conditions, gather your items here, and build a raft. ",
+    "items": [],
+    "north": "JUNGLE",
+    "craftingLocation": true
+  },
+  {
+    "name": "JUNGLE",
+    "description": "At 6.9 million square kilometers (2.72 million square miles), the Maximus jungle is roughly the size of the four contiguous United States and covers some 70 percent of the island. A river flows through its middle and the sound of birds perching on a lake nearby can be heard if one listens carefully. Hidden in the northern part of the jungle is a rope that can come in handy.  ",
+    "items": [
+      "log",
+      "rope"
+    ],
+    "north": "LAKE",
+    "south": "BEACH",
+    "east" : "CAVE",
+    "west" : "OLD MINE"
+  },
+  {
+    "name": "LAKE",
+    "description": "The sight of birds hovering, perching on and diving into this crystal-clear body of water is a sight to behold. The lake appears to be clean, but be careful, the water is not safe for drinking",
+    "items": [
+      "paddle"
+    ],
+    "south": "JUNGLE"
+  },
+  {
+    "name": "CAVE",
+    "description": "A dark and dreary place. The only sound that can be heard is the drip, drip, drip of water from the stalactites. The air is thick with humidity, and it is difficult to breathe. The darkness is so thick that it's impossible to see more than a few feet in front of you. As you look around, you see an old blanket hidden between a pile of rocks. ",
+    "items": [
+      "cloth",
+      "rocks"
+    ],
+    "west": "JUNGLE"
+  },
+  {
+    "name": "OLD MINE",
+    "description": "Abandoned for centuries, this mine smells like scummy standing water. It has rough rock walls, with thick cracked support beams every few meters down the shaft. Pieces of metal are scattered around; an old machete and several steel pipes can be seen a few meters from the entrance. An object that appears to be the size of a needle can be seen at the bottom of the shaft. As you descend to the bottom of the shaft, the object turns out to be a flashlight. ",
+    "items": [
+      "steel pipe",
+      "machete"
+    ],
+    "east": "JUNGLE"
+  }
+
 ]
