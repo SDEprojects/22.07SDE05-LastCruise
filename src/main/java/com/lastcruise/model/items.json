@@ -1,0 +1,11 @@
+[
+    { "name": "log",
+      "description": "log description"
+    },
+    { "name": "rope",
+      "description": "rope description"
+    },
+    { "name": "machete",
+      "description": "machete description"
+    }
+]

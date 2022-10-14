@@ -55,7 +55,7 @@ public class Controller {
   }
 
   public boolean getCommand(){
-    System.out.printf(view.getStatusBanner(), game.getCurrentLocation().getName(), game.getCurrentLocation().getItems());
+//    System.out.printf(view.getStatusBanner(), game.getCurrentLocation().getName(), game.getCurrentLocation().getItems());
     String[] command;
     String input;
     try{

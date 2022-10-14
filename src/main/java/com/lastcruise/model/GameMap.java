@@ -1,33 +1,58 @@
 package com.lastcruise.model;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GameMap {
 
     // list of locations
-    private HashMap<String, GameLocation> locations;
+    private Map<String, GameLocation> locations;
 
     // Constructors
 
     public GameMap() {
-        HashMap<String, GameLocation> locations = generateLocations();
-        this.locations = locations;
+
+        Map<String, GameLocation> mapOfLocations = generateLocations();
+
+        // visualize locations and their items;
+        for (var key : mapOfLocations.keySet()){
+            System.out.println(mapOfLocations.get(key));
+        }
+
+        this.locations = mapOfLocations;
     }
     // Business Methods
 
-    private HashMap<String, GameLocation> generateLocations(){
+    private Map<String, GameLocation> generateLocations() {
 
-        HashMap<String, GameLocation> stringGameLocationHashMap = new HashMap<>();
+        Map<String, GameLocation> stringGameLocationHashMap = new HashMap<>();
 
-        GameLocation location1 = new CraftingLocation("Beach", "Beach Description");
-        GameLocation location2 = new NormalLocation("Jungle", "Jungle Description");
+        ObjectMapper mapper = new ObjectMapper();
+        File jsonLocations = new File("src/main/java/com/lastcruise/model/locations.json");
 
-        stringGameLocationHashMap.put(location1.getName(), location1);
-        stringGameLocationHashMap.put(location2.getName(), location2);
+        try {
+            List<GameLocation> locationsDecoded = mapper.readValue(jsonLocations,
+                new TypeReference<List<GameLocation>>(){});
 
+            for (GameLocation location : locationsDecoded){
+                stringGameLocationHashMap.put(location.getName(), location);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         return stringGameLocationHashMap;
     }
-    public HashMap<String, GameLocation> getLocations() {
+
+    public Map<String, GameLocation> getLocations() {
         return locations;
     }
 }
