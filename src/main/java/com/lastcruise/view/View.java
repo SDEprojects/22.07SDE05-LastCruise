@@ -65,6 +65,10 @@ public class View {
     System.out.print("Would you like to start the game? enter ('yes' or 'no') ");
   }
 
+  public void printInvalidCommandMessage(){
+    System.out.println("Invalid command entered");
+  }
+
   public void clearConsole(){
     for(int i =0; i< 100; i++){
       System.out.println();

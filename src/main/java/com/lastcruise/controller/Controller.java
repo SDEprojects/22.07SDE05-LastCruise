@@ -68,8 +68,8 @@ public class Controller {
     }
     // CHECKS FOR VALID COMMAND
     if (!isValidCommand(command[0])) {
-      System.out.println("Invalid command\n");
-      System.out.println(view.getHelpCommands());
+      view.printInvalidCommandMessage();
+      view.printHelpCommands();
     }
     // HELP COMMAND
     if (command[0].equals(Commands.HELP.getValue())) {
