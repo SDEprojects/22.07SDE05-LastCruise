@@ -50,4 +50,10 @@ public class View {
   public String getNamePrompt() {
     return "Captain : Welcome Aboard Ship Maximus! May I have your name : ";
   }
+
+  public void clearConsole(){
+    for(int i =0; i< 100; i++){
+      System.out.println();
+    }
+  }
 }
