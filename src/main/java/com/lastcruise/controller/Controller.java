@@ -97,7 +97,10 @@ public class Controller {
 
   // returns false if command is not found in the Commands enum
   private boolean isValidCommand(String[] command) {
-    if (command.length < 2){
+    if (command[0].equals(Commands.QUIT.getValue())){
+      return true;
+    }
+    else if (command.length < 2){
        return false;
     }
     for (Commands c : Commands.values()) {
