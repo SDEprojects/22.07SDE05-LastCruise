@@ -3,6 +3,7 @@ package com.lastcruise.model;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +33,10 @@ public class GameMap {
   private Map<String, GameLocation> generateLocations() {
 
     Map<String, GameLocation> stringGameLocationHashMap = new HashMap<>();
-
     ObjectMapper mapper = new ObjectMapper();
-    File jsonLocations = new File("src/main/java/com/lastcruise/model/locations.json");
 
-    try {
+    // try with resources to automatically close the file
+    try(InputStream jsonLocations = Thread.currentThread().getContextClassLoader().getResourceAsStream("json/locations.json")) {
       List<GameLocation> locationsDecoded = mapper.readValue(jsonLocations,
           new TypeReference<List<GameLocation>>() {
           });
