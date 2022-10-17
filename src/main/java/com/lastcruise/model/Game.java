@@ -1,5 +1,6 @@
 package com.lastcruise.model;
 
+import com.lastcruise.model.Inventory.InventoryEmptyException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,12 +30,27 @@ public class Game {
     }
 
     public Map<String, Item> getCurrentLocationItems(){
+
+        return gameMap.getCurrentLocation().getItems().getInventory();
+    }
+
+    public Inventory getCurrentLocationInventory (){
         return gameMap.getCurrentLocation().getItems();
+    }
+
+    public Inventory getPlayerInventory(){
+        return player.getInventory();
     }
 
 
     public void moveLocation(String[] direction){
         gameMap.updateCurrentLocation(direction);
+    }
+
+    public void transferItemFromTo (Inventory from , Inventory to, String itemName)
+        throws InventoryEmptyException {
+        Item removed = from.remove(itemName);
+        to.add(itemName, removed);
     }
 
     public String inspectItem(String[] command){

@@ -2,10 +2,12 @@ package com.lastcruise.controller;
 
 import com.lastcruise.model.Commands;
 import com.lastcruise.model.Game;
+import com.lastcruise.model.Inventory.InventoryEmptyException;
 import com.lastcruise.view.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 
 public class Controller {
@@ -71,6 +73,7 @@ public class Controller {
     } else {
       processCommand(command);
     }
+
     // QUIT COMMAND
     return !command[0].equals(Commands.QUIT.getValue());
   }
@@ -89,6 +92,15 @@ public class Controller {
     } else if (command[0].equals(Commands.INSPECT.getValue())) {
       if (game.inspectItem(command) != null) {
         view.printItemDescription(game.inspectItem(command));
+      }
+
+    }
+    else if(command[0].equals(Commands.GRAB.getValue())){
+      try {
+        game.transferItemFromTo(game.getCurrentLocationInventory(), game.getPlayerInventory(),
+            command[1]);
+      } catch (InventoryEmptyException e) {
+        view.printInvalidItemMessage();
       }
     }
   }
@@ -109,7 +121,8 @@ public class Controller {
   }
 
   public void updateView() {
-    view.printStatusBanner(game.getCurrentLocationName(), "[]", game.getCurrentLocationDesc(),
+    view.printStatusBanner(game.getCurrentLocationName(), game.getPlayerInventory().getInventory().keySet().toString()
+        , game.getCurrentLocationDesc(),
         game.getCurrentLocationItems().keySet().toString());
 
   }
