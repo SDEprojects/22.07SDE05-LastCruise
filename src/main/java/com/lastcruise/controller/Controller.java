@@ -25,13 +25,13 @@ public class Controller {
     try {
       view.printStartGamePrompt();
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      input = reader.readLine();
-      input.toLowerCase().trim();
+      input = reader.readLine().trim();
       if (input.equals("yes")) {
         start = true;
         getPlayerName();
         view.printStoryIntro(name);
         game = new Game(name);
+        updateView();
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -44,9 +44,7 @@ public class Controller {
     try {
       view.printNamePrompt();
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      name = reader.readLine();
-      name.trim();
-
+      name = reader.readLine().trim();
 
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -59,10 +57,8 @@ public class Controller {
   //  updateView();
     try {
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      input = reader.readLine();
-      input = input.toLowerCase().trim();
+      input = reader.readLine().toLowerCase().trim();
       command = input.split("\\s+");
-
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -103,6 +99,7 @@ public class Controller {
     for (Commands c : Commands.values()) {
       if (c.getValue().equals(command[0])) {
             valid = true;
+            break;
       }
     }
     if((!command[0].equals(Commands.HELP.getValue()) &&!command[0].equals(Commands.QUIT.getValue())) && command.length < 2){
