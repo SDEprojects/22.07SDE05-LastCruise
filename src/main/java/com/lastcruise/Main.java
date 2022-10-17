@@ -12,6 +12,7 @@ public class Main {
 
       while(runGame){
         runGame = controller.getCommand();
+        controller.updateView();
       }
       System.out.println("Thanks for playing!");
   }
