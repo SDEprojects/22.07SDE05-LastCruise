@@ -10,12 +10,10 @@ import java.io.InputStreamReader;
 
 public class Controller {
 
-  View view = new View();
-  private static final String LEVEL = "1";
+  private final View view = new View();
   private String name;
   private Game game;
 
-  private boolean hasItemDescription = false;
 
   public boolean gameSetUp() {
     String input;
@@ -56,9 +54,9 @@ public class Controller {
   }
 
   public boolean getCommand() {
-    updateView();
     String[] command;
     String input;
+  //  updateView();
     try {
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
       input = reader.readLine();
@@ -73,42 +71,44 @@ public class Controller {
       view.printInvalidCommandMessage();
       view.printHelpCommands();
 
+    // PROCESS COMMAND
+    } else {
+      processCommand(command);
     }
-    else {
-        // HELP COMMAND
-        if (command[0].equals(Commands.HELP.getValue())) {
-          view.printHelpCommands();
-
-          // GO COMMAND
-        } else if (command[0].equals(Commands.GO.getValue())) {
-          game.moveLocation(command);
-
-          // INSPECT COMMAND
-        } else if (command[0].equals(Commands.INSPECT.getValue())) {
-          if (game.inspectItem(command) != null) {
-            view.printItemDescription(game.inspectItem(command));
-          }
-        }
-    }
-
     // QUIT COMMAND
     return !command[0].equals(Commands.QUIT.getValue());
   }
 
-  // returns false if command is not found in the Commands enum
-  private boolean isValidCommand(String[] command) {
-    if (command[0].equals(Commands.QUIT.getValue())){
-      return true;
-    }
-    else if (command.length < 2){
-       return false;
-    }
-    for (Commands c : Commands.values()) {
-      if (c.getValue().equals(command[0])) {
-        return true;
+
+  public void processCommand(String[] command) {
+      // HELP COMMAND
+    if (command[0].equals(Commands.HELP.getValue())) {
+      view.printHelpCommands();
+
+      // GO COMMAND
+    } else if (command[0].equals(Commands.GO.getValue())) {
+      game.moveLocation(command);
+
+      // INSPECT COMMAND
+    } else if (command[0].equals(Commands.INSPECT.getValue())) {
+      if (game.inspectItem(command) != null) {
+        view.printItemDescription(game.inspectItem(command));
       }
     }
-    return false;
+  }
+
+  // returns false if command is not found in the Commands enum
+  private boolean isValidCommand(String[] command) {
+    boolean valid = false;
+    for (Commands c : Commands.values()) {
+      if (c.getValue().equals(command[0])) {
+            valid = true;
+      }
+    }
+    if((!command[0].equals(Commands.HELP.getValue()) &&!command[0].equals(Commands.QUIT.getValue())) && command.length < 2){
+            valid = false;
+    }
+    return valid;
   }
 
   public void updateView() {
