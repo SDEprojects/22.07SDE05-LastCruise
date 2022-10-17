@@ -15,7 +15,11 @@ public class GameLocation {
 
     private Boolean craftingLocation;
 
-    private Map<String, Item> items;
+//    private Map<String, Item> items;
+
+    private Inventory items;
+
+
 
     public GameLocation() {
     }
@@ -68,15 +72,21 @@ public class GameLocation {
         this.west = west;
     }
 
-    public Map<String, Item> getItems() {
+    public Inventory getItems() {
         return items;
     }
 
     public void setItems(List<String> items) {
-        Map<String, Item> result = new LinkedHashMap<>();
+//        Map<String, Item> result = new LinkedHashMap<>();
+
+       Inventory result  =  new Inventory();
 
         for (String itemName : items) {
-            result.put(itemName, GameItems.GAME_ITEMS_HASHMAP.get(itemName));
+           // result.put(itemName, GameItems.GAME_ITEMS_HASHMAP.get(itemName));
+
+            result.add(itemName, GameItems.GAME_ITEMS_HASHMAP.get(itemName));
+
+
         }
         this.items = result;
     }
