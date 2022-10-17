@@ -16,6 +16,8 @@ public class Controller {
   private String name;
   private Game game;
 
+  private String message ="";
+
 
   public boolean gameSetUp() {
     String input;
@@ -66,8 +68,8 @@ public class Controller {
     }
     // CHECKS FOR VALID COMMAND
     if (!isValidCommand(command)) {
-      view.printInvalidCommandMessage();
-      view.printHelpCommands();
+      message = view.getInvalidCommandMessage()+ view.getHelpCommands();
+
 
     // PROCESS COMMAND
     } else {
@@ -82,7 +84,7 @@ public class Controller {
   public void processCommand(String[] command) {
       // HELP COMMAND
     if (command[0].equals(Commands.HELP.getValue())) {
-      view.printHelpCommands();
+      message = view.getHelpCommands();
 
       // GO COMMAND
     } else if (command[0].equals(Commands.GO.getValue())) {
@@ -91,7 +93,7 @@ public class Controller {
       // INSPECT COMMAND
     } else if (command[0].equals(Commands.INSPECT.getValue())) {
       if (game.inspectItem(command) != null) {
-        view.printItemDescription(game.inspectItem(command));
+        message = game.inspectItem(command);
       }
 
     }
@@ -100,7 +102,7 @@ public class Controller {
         game.transferItemFromTo(game.getCurrentLocationInventory(), game.getPlayerInventory(),
             command[1]);
       } catch (InventoryEmptyException e) {
-        view.printInvalidItemMessage();
+        message = view.getInvalidItemMessage();
       }
     }
   }
@@ -121,10 +123,14 @@ public class Controller {
   }
 
   public void updateView() {
-    view.printStatusBanner(game.getCurrentLocationName(), game.getPlayerInventory().getInventory().keySet().toString()
-        , game.getCurrentLocationDesc(),
-        game.getCurrentLocationItems().keySet().toString());
+    String location = game.getCurrentLocationName();
+    String playerInv = game.getPlayerInventory().getInventory().keySet().toString();
+    String locationDesc = game.getCurrentLocationDesc();
+    String locationItems = game.getCurrentLocationItems().keySet().toString();
 
+    view.printStatusBanner(location, playerInv, locationDesc, locationItems, message);
+
+    message = "";
   }
 }
 

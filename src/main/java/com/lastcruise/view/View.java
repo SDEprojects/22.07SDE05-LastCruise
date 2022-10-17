@@ -23,11 +23,7 @@ public class View {
 
 
   public void printHelpCommands(){
-    System.out.println("Help Commands: \n"
-        + "To navigate type : 'go [north, south, east, west]' \n"
-        + "To grab items type: 'grab [item name]'\n"
-        + "To craft an item type: 'craft [item name]'\n"
-        + "To inspect an item type: 'inspect [item name]'\n");
+    System.out.println(getHelpCommands());
   }
 
 
@@ -45,18 +41,6 @@ public class View {
   }
 
 
-  public void printStatusBanner(String location, String inventory, String locationDesc, String locationItems){
-    System.out.printf("_________________________________________________________%n"
-                      + "Location: %s          Inventory: %s%n%n"
-                      + "Description: %s %n"
-                      + "Location Items: %s %n"
-                      + "%n>", location, inventory, locationDesc, locationItems);
-  }
-
-  public void printItemDescription(String description){
-    System.out.printf("%nItem Description: %s%n", description);
-  }
-
   public void printNamePrompt(){
     System.out.print("\nCaptain : Welcome Aboard Ship Maximus! May I have your name: ");
   }
@@ -65,12 +49,35 @@ public class View {
     System.out.print("Would you like to start the game? enter ('yes' or 'no') ");
   }
 
-  public void printInvalidCommandMessage(){
-    System.out.println("Invalid command entered");
+
+  public void printStatusBanner(String location, String inventory, String locationDesc, String locationItems, String message){
+    System.out.printf(
+        "____________________________________________________________________________%n"
+        + "Location: %s                                 Inventory: %s%n"
+        + "____________________________________________________________________________%n%n"
+        + "Description: %s %n"
+        + "Location Items: %s %n%n"
+        + "%s%n"
+        + "%n> ", location, inventory, locationDesc, locationItems, message);
+  }
+  //------------VIEW MESSAGES------------------------------------------
+  public String getItemDescription(){
+    return "%nItem Description: %s%n";
+  }
+  public String getInvalidCommandMessage(){
+    return "Invalid command entered";
   }
 
-  public void printInvalidItemMessage(){
-    System.out.println("Item not found at this location");
+  public String getInvalidItemMessage(){
+    return "Item not found at this location";
+  }
+
+  public String getHelpCommands(){
+    return "Help Commands: \n"
+        + "To navigate type : 'go [north, south, east, west]' \n"
+        + "To grab items type: 'grab [item name]'\n"
+        + "To craft an item type: 'craft [item name]'\n"
+        + "To inspect an item type: 'inspect [item name]'\n";
   }
 
   public void clearConsole(){
