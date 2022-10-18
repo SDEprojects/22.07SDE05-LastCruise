@@ -59,7 +59,7 @@ public class GameMap {
     return currentLocation;
   }
 
-  public void updateCurrentLocation(String[] command) {
+  public void updateCurrentLocation(String[] command) throws InvalidLocationException {
     String newLocation = null;
     switch (command[1].toLowerCase()) {
       case "north": {
@@ -82,11 +82,14 @@ public class GameMap {
     if (locations.containsKey(newLocation)) {
       currentLocation = locations.get(newLocation);
     } else {
-      System.out.println("You can't go that way!");
+       throw new InvalidLocationException();
     }
 
 
   }
 
 
+  public class InvalidLocationException extends Throwable {
+
+  }
 }

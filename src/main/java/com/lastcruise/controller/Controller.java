@@ -2,6 +2,7 @@ package com.lastcruise.controller;
 
 import com.lastcruise.model.Commands;
 import com.lastcruise.model.Game;
+import com.lastcruise.model.GameMap.InvalidLocationException;
 import com.lastcruise.model.Inventory;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
 import com.lastcruise.view.View;
@@ -16,6 +17,8 @@ public class Controller {
     private final View view = new View();
     private String name;
     private Game game;
+
+    private String message ="";
 
 
     public boolean gameSetUp() {
@@ -67,8 +70,7 @@ public class Controller {
         }
         // CHECKS FOR VALID COMMAND
         if (!isValidCommand(command)) {
-            view.printInvalidCommandMessage();
-            view.printHelpCommands();
+            message = view.getInvalidCommandMessage()+view.getHelpCommands();
 
             // PROCESS COMMAND
         } else {
@@ -83,16 +85,21 @@ public class Controller {
     public void processCommand(String[] command) {
         // HELP COMMAND
         if (command[0].equals(Commands.HELP.getValue())) {
-            view.printHelpCommands();
+            message = view.getHelpCommands();
 
             // GO COMMAND
         } else if (command[0].equals(Commands.GO.getValue())) {
-            game.moveLocation(command);
+
+            try {
+                game.moveLocation(command);
+            } catch (InvalidLocationException e) {
+                message = view.getInvalidLocationMessage();
+            }
 
             // INSPECT COMMAND
         } else if (command[0].equals(Commands.INSPECT.getValue())) {
             if (game.inspectItem(command) != null) {
-                view.printItemDescription(game.inspectItem(command));
+                message = view.getItemDescription(game.inspectItem(command));
             }
 
             // either GRAB or DROP COMMAND
@@ -111,7 +118,7 @@ public class Controller {
                     game.transferItemFromTo(playerInventory, currentLocationInventory, command[1]);
                 }
             } catch (InventoryEmptyException e) {
-                view.printInvalidItemMessage();
+                view.getInvalidItemMessage();
             }
         }
     }
@@ -133,11 +140,13 @@ public class Controller {
     }
 
     public void updateView() {
-        view.printStatusBanner(game.getCurrentLocationName(),
-            game.getPlayerInventory().getInventory().keySet().toString()
-            , game.getCurrentLocationDesc(),
-            game.getCurrentLocationItems().keySet().toString());
+        String location = game.getCurrentLocationName();
+        String inventory = game.getPlayerInventory().getInventory().keySet().toString();
+        String locationDesc = game.getCurrentLocationDesc();
+        String locationItems = game.getCurrentLocationItems().keySet().toString();
 
+        view.printStatusBanner(location, inventory, locationDesc, locationItems, message);
+        message = "";
     }
 }
 
