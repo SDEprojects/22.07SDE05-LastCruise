@@ -82,6 +82,10 @@ public class View {
         + "To inspect an item type: 'inspect [item name]'\n";
   }
 
+  public String cantGrabItem(){
+    return "You need something else to grab that item";
+  }
+
   public void clearConsole(){
     for(int i =0; i< 50; i++){
       System.out.println();

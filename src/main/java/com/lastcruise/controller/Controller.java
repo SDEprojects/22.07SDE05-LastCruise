@@ -3,13 +3,12 @@ package com.lastcruise.controller;
 import com.lastcruise.model.Commands;
 import com.lastcruise.model.Game;
 import com.lastcruise.model.GameMap.InvalidLocationException;
-import com.lastcruise.model.Inventory;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
 import com.lastcruise.view.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+
 
 
 public class Controller {
@@ -111,7 +110,14 @@ public class Controller {
             try {
                 // GRAB COMMAND
                 if (command[0].equals(Commands.GRAB.getValue())) {
-                    game.transferItemFromTo(currentLocationInventory, playerInventory, command[1]);
+                    // GRABBING LOG
+                    if(command[1].equals("log") && !playerInventory.getInventory().containsKey("machete")){
+                        message = view.cantGrabItem();
+                    }
+                    else{
+                        game.transferItemFromTo(currentLocationInventory, playerInventory, command[1]);
+                    }
+
 
                 // DROP COMMAND
                 } else {

@@ -11,6 +11,8 @@ public class Game {
 
     private static final  String STARTING_LOCATION = "BEACH";
 
+
+
     public Game(String playerName) {
         this.gameMap = new GameMap();
         this.player = new Player(playerName);
@@ -62,4 +64,6 @@ public class Game {
             return null;
 
     }
+
+
 }
