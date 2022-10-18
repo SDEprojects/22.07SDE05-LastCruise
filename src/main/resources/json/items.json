@@ -1,7 +1,8 @@
 [
   {
     "name": "log",
-    "description": "a long piece of wood. You need something sharp to cut it down"
+    "description": "a long piece of wood. You need something sharp to cut it down",
+    "required": ["machete"]
   },
   {
     "name": "rope",
@@ -26,5 +27,10 @@
   {
     "name": "steelpipe",
     "description": "a steel pipe that may have been used as mining tool"
+  },
+  {
+    "name": "raft",
+    "description": "raft description",
+    "required": ["log","cloth","rope","steelpipe","paddle"]
   }
 ]

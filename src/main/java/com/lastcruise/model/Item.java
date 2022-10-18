@@ -1,8 +1,16 @@
 package com.lastcruise.model;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class Item {
     private String name;
     private String description;
+
+    private Set<String> required;
+
+
 
     public String getName() {
         return name;
@@ -18,6 +26,18 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<String> getRequired() {
+        return required;
+    }
+
+    public void setRequired(List<String> requiredItemList) {
+        //this.required = requiredItemList
+        required = new HashSet<>() ;
+        required.addAll(requiredItemList);
+//
+
     }
 
     @Override

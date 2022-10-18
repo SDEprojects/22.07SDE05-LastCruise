@@ -1,5 +1,6 @@
 package com.lastcruise.model;
 
+import com.lastcruise.model.GameMap.InvalidLocationException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ public class GameLocation {
 //    private Map<String, Item> items;
 
     private Inventory items;
+    Item it = new Item();
 
 
 
@@ -99,6 +101,13 @@ public class GameLocation {
         this.craftingLocation = craftingLocation;
     }
 
+
+
+
+
+
+
+
     @Override
     public String toString() {
         return "\nGameLocation{" +
@@ -112,4 +121,6 @@ public class GameLocation {
             ", \n   items=" + items +
             "\n }";
     }
+
+
 }

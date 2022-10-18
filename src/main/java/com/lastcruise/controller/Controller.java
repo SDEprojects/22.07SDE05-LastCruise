@@ -127,6 +127,26 @@ public class Controller {
                 view.getInvalidItemMessage();
             }
         }
+        else if (command[0].equals(Commands.CRAFT.getValue())){
+            if (command[1].equals("raft")){
+                if(game.getCurrentLocation().getCraftingLocation() != null){
+                    //Craft raft
+                  if( game.craftRaft()){
+                      message = view.getSuccesfulRaftBuildMessage();
+
+
+                  }else{
+                      message = view.getNotSuccesfulRaftBuildMessage();
+
+                  }
+
+                }else{
+                    message = view.getNotInRaftLocationBuildMessage();
+
+                }
+
+            }
+        }
     }
 
     // returns false if command is not found in the Commands enum

@@ -74,6 +74,16 @@ public class View {
     return "You can't go that way";
   }
 
+  public String getSuccesfulRaftBuildMessage(){
+    return "raft build successful";
+  }
+  public String getNotSuccesfulRaftBuildMessage(){
+    return "Raft build unsuccessful. You do not have the required items yet.";
+  }
+  public String getNotInRaftLocationBuildMessage(){
+    return "You are not in a crafting location";
+  }
+
   public String getHelpCommands(){
     return "Help Commands: \n"
         + "To navigate type : 'go [north, south, east, west]' \n"

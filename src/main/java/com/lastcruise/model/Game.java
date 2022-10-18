@@ -64,6 +64,17 @@ public class Game {
             return null;
 
     }
+    public boolean craftRaft() {
+        // Compare crafting location inventory items to items required to build craft)
+        //Replace location inventory with raft item
+        //Print out message to user about successful raft build
+        //else print out message about unsuccessful attempt to build a raft.
+        // (cannot build raft, you do not have required items)
+
+        //throw new exception();
+        return getCurrentLocation().getItems().getInventory().keySet()
+            .containsAll(GameItems.GAME_ITEMS_HASHMAP.get("raft").getRequired());
+    }
 
 
 }
