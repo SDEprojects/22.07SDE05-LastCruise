@@ -111,7 +111,13 @@ public class Controller {
             try {
                 // GRAB COMMAND
                 if (command[0].equals(Commands.GRAB.getValue())) {
-                    game.transferItemFromTo(currentLocationInventory, playerInventory, command[1]);
+                    if(command[1] == "log" && playerInventory.getInventory().containsKey("machete")){
+                        game.transferItemFromTo(currentLocationInventory, playerInventory, command[1]);
+                    }
+                    else{
+                        message = view.cantGrabItem();
+                    }
+
 
                 // DROP COMMAND
                 } else {
