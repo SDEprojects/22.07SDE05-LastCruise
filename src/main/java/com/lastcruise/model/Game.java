@@ -1,5 +1,6 @@
 package com.lastcruise.model;
 
+import com.lastcruise.model.GameMap.InvalidLocationException;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,7 @@ public class Game {
     }
 
 
-    public void moveLocation(String[] direction){
+    public void moveLocation(String[] direction) throws InvalidLocationException {
         gameMap.updateCurrentLocation(direction);
     }
 
