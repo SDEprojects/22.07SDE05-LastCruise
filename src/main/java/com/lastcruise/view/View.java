@@ -1,103 +1,102 @@
 package com.lastcruise.view;
 
+import com.lastcruise.model.GameText;
+import java.util.Map;
+
 public class View {
 
+  private final Map<String, String> GAME_TEXT;
 
-  public void printGameBanner(){
-    System.out.println("\n"
-        + "████████╗██╗░░██╗███████╗  ██╗░░░░░░█████╗░░██████╗████████╗  ░█████╗░██████╗░██╗░░░██╗██╗░██████╗███████╗\n"
-        + "╚══██╔══╝██║░░██║██╔════╝  ██║░░░░░██╔══██╗██╔════╝╚══██╔══╝  ██╔══██╗██╔══██╗██║░░░██║██║██╔════╝██╔════╝\n"
-        + "░░░██║░░░███████║█████╗░░  ██║░░░░░███████║╚█████╗░░░░██║░░░  ██║░░╚═╝██████╔╝██║░░░██║██║╚█████╗░█████╗░░\n"
-        + "░░░██║░░░██╔══██║██╔══╝░░  ██║░░░░░██╔══██║░╚═══██╗░░░██║░░░  ██║░░██╗██╔══██╗██║░░░██║██║░╚═══██╗██╔══╝░░\n"
-        + "░░░██║░░░██║░░██║███████╗  ███████╗██║░░██║██████╔╝░░░██║░░░  ╚█████╔╝██║░░██║╚██████╔╝██║██████╔╝███████╗\n"
-        + "░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ╚══════╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░  ░╚════╝░╚═╝░░╚═╝░╚═════╝░╚═╝╚═════╝░╚══════╝\n");
+  public View() {
+    GameText gameText = new GameText();
+    GAME_TEXT = gameText.getGameText();
   }
 
-  public void printStory(){
-    System.out.println("INTRODUCTION:\n"
-        + "Board the Maximus Ship, and journey into an exciting world.\n"
-        + "The Maximus will hit an iceberg but you will survive the shipwreck.\n"
-        + "Swim to a nearby island where you have to rely on your navigation skills, strategy and survival instinct to survive and escape the island.  \n"
-        + "The only way to escape the island and win the game is to explore the island, gather useful items, return to the beach, and build a raft.\n");
+  public void printGameBanner() {
+    System.out.println(GAME_TEXT.get("Banner"));
+  }
+
+  public void printStory() {
+    System.out.println(GAME_TEXT.get("Intro"));
+
   }
 
 
-  public void printHelpCommands(){
-    System.out.println(getHelpCommands());
+  public void printHelpCommands() {
+    System.out.println(GAME_TEXT.get("Help"));
   }
 
 
-  public void printInstructions(){
-    System.out.println("INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands. You can 'quit' at anytime\n");
+  public void printInstructions() {
+    System.out.println(GAME_TEXT.get("Instructions"));
   }
 
 
-  public void printStoryIntro(String name){
-    System.out.printf("Welcome aboard %s. We are expecting to arrive in a few hours.%n%n"
-        + "A few hours later......%n%n%n"
-        + "Captain: Attention Passengers! There is a bad storm a head of us. We can't turn the ship around%n"
-        + "Captain: MAYDAY! MAYDAY! MAYDAY!%n"
-        + "Shipwreck! You jump in the water and swim to the nearest land%n%n", name);
-  }
-  public void printNamePrompt(){
-    System.out.print("\nCaptain : Welcome Aboard Ship Maximus! May I have your name: ");
+  public void printStoryIntro(String name) {
+    System.out.printf(GAME_TEXT.get("StoryIntro"), name);
   }
 
-  public void printStartGamePrompt(){
-    System.out.print("Would you like to start the game? enter ('yes' or 'no') ");
+  public void printNamePrompt() {
+    System.out.print(GAME_TEXT.get("NamePrompt"));
   }
 
-  public void printStatusBanner(String location, String inventory, String locationDesc, String locationItems, String message){
-    System.out.printf(
-              "______________________________________________________________________________________________________%n"
-            + "Location: %s                                 Inventory: %s%n"
-            + "______________________________________________________________________________________________________%n%n"
-            + "Description: %s %n"
-            + "Location Items: %s %n%n"
-            + "%s%n"
-            + "%n> ", location, inventory, locationDesc, locationItems, message);
+  public void printStartGamePrompt() {
+    System.out.print(GAME_TEXT.get("StartGamePrompt"));
   }
+
+  public void printStatusBanner(String location, String inventory, String locationDesc,
+      String locationItems, String message) {
+    System.out.printf(GAME_TEXT.get("Status"), location, inventory, locationDesc, locationItems,
+        message);
+//    System.out.printf(
+//              "______________________________________________________________________________________________________%n"
+//            + "Location: %s                                 Inventory: %s%n"
+//            + "______________________________________________________________________________________________________%n%n"
+//            + "Description: %s %n"
+//            + "Location Items: %s %n%n"
+//            + "%s%n"
+//            + "%n> ", location, inventory, locationDesc, locationItems, message);
+  }
+
   //------------VIEW MESSAGES------------------------------------------
-  public String getItemDescription(String description){
-    return String.format("%nItem Description: %s%n", description);
+  public String getItemDescription(String description) {
+    return String.format(GAME_TEXT.get("ItemDescription"), description);
   }
 
-  public String getInvalidItemMessage(){
-    return "Item not found. Invalid item entered.";
+  public String getInvalidItemMessage() {
+    return GAME_TEXT.get("ItemNotFound");
   }
 
-  public String getInvalidCommandMessage(){
-    return "Invalid command entered\n";
+  public String getInvalidCommandMessage() {
+    return GAME_TEXT.get("InvalidCommand");
   }
 
-  public String getInvalidLocationMessage(){
-    return "You can't go that way";
+  public String getInvalidLocationMessage() {
+    return GAME_TEXT.get("InvalidLocation");
   }
 
-  public String getSuccesfulRaftBuildMessage(){
-    return "raft build successful";
-  }
-  public String getNotSuccesfulRaftBuildMessage(){
-    return "Raft build unsuccessful. You do not have the required items yet.";
-  }
-  public String getNotInRaftLocationBuildMessage(){
-    return "You are not in a crafting location";
+  public String getSuccesfulRaftBuildMessage() {
+    return GAME_TEXT.get("BuildSuccessful");
   }
 
-  public String getHelpCommands(){
-    return "Help Commands: \n"
-        + "To navigate type : 'go [north, south, east, west]' \n"
-        + "To grab items type: 'grab [item name]'\n"
-        + "To craft an item type: 'craft [item name]'\n"
-        + "To inspect an item type: 'inspect [item name]'\n";
+  public String getNotSuccesfulRaftBuildMessage() {
+    return GAME_TEXT.get("BuildNotSuccessful");
   }
 
-  public String cantGrabItem(){
-    return "You need something else to grab that item";
+  public String getNotInRaftLocationBuildMessage() {
+    return GAME_TEXT.get("InvalidCraftingLocation");
   }
 
-  public void clearConsole(){
-    for(int i =0; i< 50; i++){
+  public String getHelpCommands() {
+    return GAME_TEXT.get("Help");
+  }
+
+  public String cantGrabItem() {
+    return GAME_TEXT.get("CantGrabItem");
+  }
+
+  public void clearConsole() {
+    for (int i = 0; i < 50; i++) {
       System.out.println();
     }
 
