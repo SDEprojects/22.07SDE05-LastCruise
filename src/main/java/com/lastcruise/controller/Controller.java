@@ -22,6 +22,8 @@ public class Controller {
 
   private String message = "";
 
+  private boolean keepPlaying = true;
+
 
   public boolean gameSetUp() {
     String input;
@@ -62,7 +64,7 @@ public class Controller {
   public boolean getCommand() {
     String[] command;
     String input;
-    //  updateView();
+
     try {
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
       input = reader.readLine().toLowerCase().trim();
@@ -75,19 +77,11 @@ public class Controller {
       message = view.getInvalidCommandMessage() + view.getHelpCommands();
 
       // PROCESS COMMAND
-    } else if (command[0].equals(ESCAPE.getValue())) {
-      if (game.getCurrentLocationItems().containsKey("raft")) {
-        message = "Congratulations! You've escaped this island!";
-        return false;
-      } else {
-        message = "You cannot escape without a raft!";
-      }
-    } else {
+    }else {
       processCommand2(command);
     }
 
-    // QUIT COMMAND
-    return !command[0].equals(QUIT.getValue());
+    return keepPlaying;
   }
 
 
@@ -159,7 +153,6 @@ public class Controller {
   public void processCommand2(String[] command) {
 
     switch (Commands.valueOf(command[0].toUpperCase())) {
-
       //---- GO -------//
       case GO: {
         try {
@@ -210,7 +203,7 @@ public class Controller {
         break;
       }
       //--- CRAFT ---//
-      case CRAFT:
+      case CRAFT: {
         if (command[1].equals("raft")) {
           if (game.getCurrentLocation() instanceof CraftingLocation) {
             //Craft raft
@@ -220,12 +213,31 @@ public class Controller {
             } else {
               message = view.getNotSuccesfulRaftBuildMessage();
             }
+
           } else {
             message = view.getNotInRaftLocationBuildMessage();
           }
+
+        }
+        else{
+          message = "Item not craftable.";
         }
         break;
+      }
 
+      case ESCAPE:{
+        if (game.getCurrentLocationItems().containsKey("raft")) {
+          message = "Congratulations! You've escaped this island!";
+          keepPlaying = false;
+        } else {
+          message = "You cannot escape without a raft!";
+        }
+        break;
+      }
+      case QUIT:{
+          keepPlaying = false;
+          break;
+      }
       default:
         throw new IllegalStateException("Unexpected value: " + command[0]);
     }
