@@ -245,18 +245,26 @@ public class Controller {
 
   // returns false if command is not found in the Commands enum
   private boolean isValidCommand(String[] command) {
-    boolean valid = false;
     for (Commands c : values()) {
       if (c.getValue().equals(command[0])) {
-        valid = true;
         break;
       }
+      else{
+        return false;
+      }
     }
-    if ((!command[0].equals(HELP.getValue()) && !command[0].equals(
-        QUIT.getValue()) && !command[0].equals(ESCAPE.getValue())) && (command.length < 2)) {
-      valid = false;
+
+    switch(Commands.valueOf(command[0].toUpperCase())){
+      case GO:
+      case GRAB:
+      case INSPECT:
+      case DROP:
+      case CRAFT:
+        return command.length == 2;
+      default:
+       return true;
     }
-    return valid;
+
   }
 
   public void updateView() {
