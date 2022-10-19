@@ -165,6 +165,7 @@ public class Controller {
       //---- HELP -------//
       case HELP: {
         message = view.getHelpCommands();
+        break;
       }
       //---- INSPECT -------//
       case INSPECT: {
@@ -249,18 +250,14 @@ public class Controller {
       if (c.getValue().equals(command[0])) {
         break;
       }
-      else{
-        return false;
-      }
     }
-
     switch(Commands.valueOf(command[0].toUpperCase())){
       case GO:
       case GRAB:
       case INSPECT:
       case DROP:
       case CRAFT:
-        return command.length == 2;
+        return command.length >=2;
       default:
        return true;
     }
