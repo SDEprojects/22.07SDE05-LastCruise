@@ -9,15 +9,25 @@
 
     "Instructions" : "INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands. You can 'quit' at anytime\n",
 
-    "Status":"_________________________________________________________%nLocation: %s          Inventory: %s%n%nDescription: %s %nLocation Items: %s %n%n>",
+    "Status":    "______________________________________________________________________________________________________%nLocation: %s                                 Inventory: %s%n______________________________________________________________________________________________________%n%nDescription: %s %nLocation Items: %s %n%n%s%n%n> ",
 
     "StartGamePrompt" : "Would you like to start the game? enter ('yes' or 'no') ",
 
     "NamePrompt" : "\nCaptain : Welcome Aboard Ship Maximus! May I have your name: ",
 
-    "InvalidCommand": "Invalid command entered",
+    "InvalidCommand": "Invalid command entered\n",
 
-    "ItemNotFound": "Item not found at this location",
+    "InvalidLocation": "You can't go that way!",
 
-    "ItemDescription": "%nItem Description: %s%n"
+    "ItemNotFound": "Item not found.Invalid Item entered",
+
+    "ItemDescription": "%nItem Description: %s%n",
+
+    "BuildSuccessful" : "raft build successful",
+
+    "BuildNotSuccessful":"Raft build unsuccessful. You do not have the required items yet.",
+
+     "InvalidCraftingLocation": "You are not in a crafting location",
+
+     "CantGrabItem": "You need something else to grab that item"
   }
