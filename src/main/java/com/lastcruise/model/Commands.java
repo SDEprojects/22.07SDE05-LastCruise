@@ -4,9 +4,11 @@ public enum Commands {
     GO("go"),
     HELP("help"),
     GRAB("grab"),
+    DROP("drop"),
     INSPECT("inspect"),
     CRAFT("craft"),
-    QUIT("quit");
+    QUIT("quit"),
+    ESCAPE("escape");
 
 
     private final String value;
