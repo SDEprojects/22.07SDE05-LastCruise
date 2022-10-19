@@ -7,7 +7,8 @@ public enum Commands {
     DROP("drop"),
     INSPECT("inspect"),
     CRAFT("craft"),
-    QUIT("quit");
+    QUIT("quit"),
+    ESCAPE("escape");
 
 
     private final String value;

@@ -1,10 +1,20 @@
 package com.lastcruise.model;
 
-import com.lastcruise.model.GameMap.InvalidLocationException;
-import java.util.LinkedHashMap;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import java.util.List;
-import java.util.Map;
 
+@JsonTypeInfo(
+    use = Id.NAME,
+    include = As.PROPERTY,
+    property = "type")
+@JsonSubTypes({
+    @Type(value = CraftingLocation.class, name = "crafting"),
+    @Type(value = GameLocation.class, name = "normal")
+})
 public class GameLocation {
 
     private String name;
@@ -13,16 +23,10 @@ public class GameLocation {
     private String south;
     private String east;
     private String west;
-
-    private Boolean craftingLocation;
-
-//    private Map<String, Item> items;
-
+//    private Boolean craftingLocation;
     private Inventory items;
-    Item it = new Item();
 
-
-
+    // Constructor
     public GameLocation() {
     }
 
@@ -79,34 +83,25 @@ public class GameLocation {
     }
 
     public void setItems(List<String> items) {
-//        Map<String, Item> result = new LinkedHashMap<>();
 
        Inventory result  =  new Inventory();
 
         for (String itemName : items) {
-           // result.put(itemName, GameItems.GAME_ITEMS_HASHMAP.get(itemName));
-
             result.add(itemName, GameItems.GAME_ITEMS_HASHMAP.get(itemName));
-
-
         }
         this.items = result;
     }
 
-    public Boolean getCraftingLocation() {
-        return craftingLocation;
-    }
-
-    public void setCraftingLocation(Boolean craftingLocation) {
-        this.craftingLocation = craftingLocation;
-    }
-
-
-
-
-
-
-
+//    public Boolean getCraftingLocation() {
+//        return craftingLocation;
+//    }
+//
+//    public void setCraftingLocation(Boolean craftingLocation) {
+//        this.craftingLocation = craftingLocation;
+//        if (craftingLocation){
+//
+//        }
+//    }
 
     @Override
     public String toString() {
@@ -117,10 +112,8 @@ public class GameLocation {
             ", \n   south='" + south + '\'' +
             ", \n   east='" + east + '\'' +
             ", \n   west='" + west + '\'' +
-            ", \n   craftingLocation=" + craftingLocation +
+//            ", \n   craftingLocation=" + craftingLocation +
             ", \n   items=" + items +
             "\n }";
     }
-
-
 }

@@ -1,6 +1,7 @@
 package com.lastcruise.controller;
 
 import com.lastcruise.model.Commands;
+import com.lastcruise.model.CraftingLocation;
 import com.lastcruise.model.Game;
 import com.lastcruise.model.GameMap.InvalidLocationException;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
@@ -72,6 +73,13 @@ public class Controller {
             message = view.getInvalidCommandMessage()+view.getHelpCommands();
 
             // PROCESS COMMAND
+        } else if(command[0].equals(Commands.ESCAPE.getValue())){
+            if(game.getCurrentLocationItems().containsKey("raft")){
+                message = "Congratulations! You've escaped this island!";
+                return false;
+            } else {
+               message = "You cannot escape without a raft!";
+            }
         } else {
             processCommand(command);
         }
@@ -129,7 +137,7 @@ public class Controller {
         }
         else if (command[0].equals(Commands.CRAFT.getValue())){
             if (command[1].equals("raft")){
-                if(game.getCurrentLocation().getCraftingLocation() != null){
+                if(game.getCurrentLocation() instanceof CraftingLocation) {
                     //Craft raft
                   if( game.craftRaft()){
                       message = view.getSuccesfulRaftBuildMessage();
@@ -159,7 +167,7 @@ public class Controller {
             }
         }
         if ((!command[0].equals(Commands.HELP.getValue()) && !command[0].equals(
-            Commands.QUIT.getValue())) && command.length < 2) {
+            Commands.QUIT.getValue()) && !command[0].equals(Commands.ESCAPE.getValue())) && command.length < 2) {
             valid = false;
         }
         return valid;
