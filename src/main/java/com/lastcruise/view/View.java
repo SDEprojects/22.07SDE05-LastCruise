@@ -1,43 +1,48 @@
 package com.lastcruise.view;
 
-public class View {
+import com.lastcruise.model.GameText;
+import java.util.Map;
 
+public class View {
+    private final Map<String, String> GAME_TEXT;
+    public View(){
+      GameText gameText = new GameText();
+      GAME_TEXT = gameText.getGameText();
+    }
 
   public void printGameBanner(){
-    System.out.println("\n"
-        + "████████╗██╗░░██╗███████╗  ██╗░░░░░░█████╗░░██████╗████████╗  ░█████╗░██████╗░██╗░░░██╗██╗░██████╗███████╗\n"
-        + "╚══██╔══╝██║░░██║██╔════╝  ██║░░░░░██╔══██╗██╔════╝╚══██╔══╝  ██╔══██╗██╔══██╗██║░░░██║██║██╔════╝██╔════╝\n"
-        + "░░░██║░░░███████║█████╗░░  ██║░░░░░███████║╚█████╗░░░░██║░░░  ██║░░╚═╝██████╔╝██║░░░██║██║╚█████╗░█████╗░░\n"
-        + "░░░██║░░░██╔══██║██╔══╝░░  ██║░░░░░██╔══██║░╚═══██╗░░░██║░░░  ██║░░██╗██╔══██╗██║░░░██║██║░╚═══██╗██╔══╝░░\n"
-        + "░░░██║░░░██║░░██║███████╗  ███████╗██║░░██║██████╔╝░░░██║░░░  ╚█████╔╝██║░░██║╚██████╔╝██║██████╔╝███████╗\n"
-        + "░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ╚══════╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░  ░╚════╝░╚═╝░░╚═╝░╚═════╝░╚═╝╚═════╝░╚══════╝\n");
+    System.out.println(GAME_TEXT.get("Banner"));
   }
 
   public void printStory(){
-    System.out.println("INTRODUCTION:\n"
-        + "Board the Maximus Ship, and journey into an exciting world.\n"
-        + "The Maximus will hit an iceberg but you will survive the shipwreck.\n"
-        + "Swim to a nearby island where you have to rely on your navigation skills, strategy and survival instinct to survive and escape the island.  \n"
-        + "The only way to escape the island and win the game is to explore the island, gather useful items, return to the beach, and build a raft.\n");
+
+    System.out.println(GAME_TEXT.get("Intro"));
+//    System.out.println("INTRODUCTION:\n"
+//        + "Board the Maximus Ship, and journey into an exciting world.\n"
+//        + "The Maximus will hit an iceberg but you will survive the shipwreck.\n"
+//        + "Swim to a nearby island where you have to rely on your navigation skills, strategy and survival instinct to survive and escape the island.  \n"
+//        + "The only way to escape the island and win the game is to explore the island, gather useful items, return to the beach, and build a raft.\n");
   }
 
 
   public void printHelpCommands(){
-    System.out.println(getHelpCommands());
+    System.out.println(GAME_TEXT.get("Help"));
   }
 
 
   public void printInstructions(){
-    System.out.println("INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands. You can 'quit' at anytime\n");
+    System.out.println(GAME_TEXT.get("Instructions"));
+//    System.out.println("INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands. You can 'quit' at anytime\n");
   }
 
 
   public void printStoryIntro(String name){
-    System.out.printf("Welcome aboard %s. We are expecting to arrive in a few hours.%n%n"
-        + "A few hours later......%n%n%n"
-        + "Captain: Attention Passengers! There is a bad storm a head of us. We can't turn the ship around%n"
-        + "Captain: MAYDAY! MAYDAY! MAYDAY!%n"
-        + "Shipwreck! You jump in the water and swim to the nearest land%n%n", name);
+    System.out.printf(GAME_TEXT.get("StoryIntro"), name);
+//    System.out.printf("Welcome aboard %s. We are expecting to arrive in a few hours.%n%n"
+//        + "A few hours later......%n%n%n"
+//        + "Captain: Attention Passengers! There is a bad storm a head of us. We can't turn the ship around%n"
+//        + "Captain: MAYDAY! MAYDAY! MAYDAY!%n"
+//        + "Shipwreck! You jump in the water and swim to the nearest land%n%n", name);
   }
   public void printNamePrompt(){
     System.out.print("\nCaptain : Welcome Aboard Ship Maximus! May I have your name: ");
