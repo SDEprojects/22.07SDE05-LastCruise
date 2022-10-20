@@ -6,7 +6,6 @@ import com.lastcruise.model.Commands;
 import com.lastcruise.model.CraftingLocation;
 import com.lastcruise.model.Game;
 import com.lastcruise.model.GameMap.InvalidLocationException;
-import com.lastcruise.model.Inventory;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
 import com.lastcruise.view.View;
 import java.io.BufferedReader;
@@ -165,17 +164,17 @@ public class Controller {
                     }
 
                 } else {
-                    message = "Item not craftable.";
+                    message = view.getItemNotCraftable();
                 }
                 break;
             }
 
             case ESCAPE: {
                 if (game.getCurrentLocationItems().containsKey("raft")) {
-                    message = "Congratulations! You've escaped this island!";
+                    message = view.getYouWonMessage();
                     keepPlaying = false;
                 } else {
-                    message = "You cannot escape without a raft!";
+                    message = view.getCantEscape();
                 }
                 break;
             }

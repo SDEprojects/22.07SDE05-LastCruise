@@ -95,6 +95,19 @@ public class View {
     return GAME_TEXT.get("CantGrabItem");
   }
 
+  public String getItemNotCraftable(){
+    return GAME_TEXT.get("ItemNotCraftable");
+
+  }
+
+  public String getCantEscape(){
+    return GAME_TEXT.get("CantEscape");
+  }
+
+  public String getYouWonMessage(){
+    return GAME_TEXT.get("Win");
+  }
+
   public void clearConsole() {
     for (int i = 0; i < 50; i++) {
       System.out.println();
