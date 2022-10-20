@@ -69,6 +69,10 @@ public class Controller {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             input = reader.readLine().toLowerCase().trim();
             command = input.split("\\s+");
+            if(command[0].equals("pick") && command[1].equals("up")){
+                command[0] = "pickup";
+                command[1] = command[2];
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -86,10 +90,10 @@ public class Controller {
 
 
     public void processCommand(String[] command) {
+        Commands c = Commands.valueOf(command[0].toUpperCase());
 
-        switch (Commands.valueOf(command[0].toUpperCase())) {
+        switch (c){
             //---- GO -------//
-
             case GO: {
                 try {
                     game.moveLocation(command);
@@ -111,6 +115,8 @@ public class Controller {
                 break;
             }
             //---- GRAB -------//
+            case PICKUP:
+            case TAKE:
             case GRAB: {
                 var currentLocationInventory = game.getCurrentLocationInventory();
                 var playerInventory = game.getPlayerInventory();
@@ -142,6 +148,7 @@ public class Controller {
                 break;
             }
             //--- CRAFT ---//
+            case BUILD:
             case CRAFT: {
                 if (command[1].equals("raft")) {
                     if (game.getCurrentLocation() instanceof CraftingLocation) {
@@ -189,12 +196,15 @@ public class Controller {
                 break;
             }
         }
-        switch (Commands.valueOf(command[0].toUpperCase())) {
+        switch (Commands.valueOf(command[0].toUpperCase().replaceAll("\\s", ""))) {
             case GO:
             case GRAB:
+            case PICKUP:
+            case TAKE:
             case INSPECT:
             case DROP:
             case CRAFT:
+            case BUILD:
                 return command.length >= 2;
             default:
                 return true;
