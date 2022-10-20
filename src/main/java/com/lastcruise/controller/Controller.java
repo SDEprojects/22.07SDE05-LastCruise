@@ -240,7 +240,8 @@ public class Controller {
           break;
       }
       default:
-        throw new IllegalStateException("Unexpected value: " + command[0]);
+        message = view.getInvalidCommandMessage();
+        break;
     }
   }
 
