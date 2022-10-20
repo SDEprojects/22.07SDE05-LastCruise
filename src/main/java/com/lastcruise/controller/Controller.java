@@ -1,15 +1,17 @@
 package com.lastcruise.controller;
 
+import static com.lastcruise.model.Commands.*;
+
 import com.lastcruise.model.Commands;
 import com.lastcruise.model.CraftingLocation;
 import com.lastcruise.model.Game;
 import com.lastcruise.model.GameMap.InvalidLocationException;
+import com.lastcruise.model.Inventory;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
 import com.lastcruise.view.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 
 
 public class Controller {
@@ -18,7 +20,9 @@ public class Controller {
     private String name;
     private Game game;
 
-    private String message ="";
+    private String message = "";
+
+    private boolean keepPlaying = true;
 
 
     public boolean gameSetUp() {
@@ -60,7 +64,7 @@ public class Controller {
     public boolean getCommand() {
         String[] command;
         String input;
-        //  updateView();
+
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             input = reader.readLine().toLowerCase().trim();
@@ -70,107 +74,132 @@ public class Controller {
         }
         // CHECKS FOR VALID COMMAND
         if (!isValidCommand(command)) {
-            message = view.getInvalidCommandMessage()+view.getHelpCommands();
+            message = view.getInvalidCommandMessage() + view.getHelpCommands();
 
             // PROCESS COMMAND
-        } else if(command[0].equals(Commands.ESCAPE.getValue())){
-            if(game.getCurrentLocationItems().containsKey("raft")){
-                message = "Congratulations! You've escaped this island!";
-                return false;
-            } else {
-               message = "You cannot escape without a raft!";
-            }
         } else {
             processCommand(command);
         }
 
-        // QUIT COMMAND
-        return !command[0].equals(Commands.QUIT.getValue());
+        return keepPlaying;
     }
 
 
     public void processCommand(String[] command) {
-        // HELP COMMAND
-        if (command[0].equals(Commands.HELP.getValue())) {
-            message = view.getHelpCommands();
 
-            // GO COMMAND
-        } else if (command[0].equals(Commands.GO.getValue())) {
+        switch (Commands.valueOf(command[0].toUpperCase())) {
+            //---- GO -------//
 
-            try {
-                game.moveLocation(command);
-            } catch (InvalidLocationException e) {
-                message = view.getInvalidLocationMessage();
+            case GO: {
+                try {
+                    game.moveLocation(command);
+                } catch (InvalidLocationException e) {
+                    message = view.getInvalidLocationMessage();
+                }
+                break;
             }
-
-            // INSPECT COMMAND
-        } else if (command[0].equals(Commands.INSPECT.getValue())) {
-            if (game.inspectItem(command) != null) {
-                message = view.getItemDescription(game.inspectItem(command));
+            //---- HELP -------//
+            case HELP: {
+                message = view.getHelpCommands();
+                break;
             }
-
-            // either GRAB or DROP COMMAND
-        } else if (command[0].equals(Commands.GRAB.getValue()) || command[0].equals(
-            Commands.DROP.getValue())) {
-            var currentLocationInventory = game.getCurrentLocationInventory();
-            var playerInventory = game.getPlayerInventory();
-
-            try {
-                // GRAB COMMAND
-                if (command[0].equals(Commands.GRAB.getValue())) {
-                    // GRABBING LOG
-                    if(command[1].equals("log") && !playerInventory.getInventory().containsKey("machete")){
-                        message = view.cantGrabItem();
-                    }
-                    else{
-                        game.transferItemFromTo(currentLocationInventory, playerInventory, command[1]);
-                    }
-
-
-                // DROP COMMAND
+            //---- INSPECT -------//
+            case INSPECT: {
+                if (game.inspectItem(command) != null) {
+                    message = view.getItemDescription(game.inspectItem(command));
+                }
+                break;
+            }
+            //---- GRAB -------//
+            case GRAB: {
+                var currentLocationInventory = game.getCurrentLocationInventory();
+                var playerInventory = game.getPlayerInventory();
+                // GRABBING LOG
+                if (command[1].equals("log") && !playerInventory.getInventory()
+                    .containsKey("machete")) {
+                    message = view.cantGrabItem();
                 } else {
-                    game.transferItemFromTo(playerInventory, currentLocationInventory, command[1]);
+                    try {
+                        game.transferItemFromTo(currentLocationInventory, playerInventory,
+                            command[1]);
+                    } catch (InventoryEmptyException e) {
+                        message = view.getInvalidItemMessage();
+                    }
                 }
-            } catch (InventoryEmptyException e) {
-                view.getInvalidItemMessage();
+                break;
             }
-        }
-        else if (command[0].equals(Commands.CRAFT.getValue())){
-            if (command[1].equals("raft")){
-                if(game.getCurrentLocation() instanceof CraftingLocation) {
-                    //Craft raft
-                  if( game.craftRaft()){
-                      message = view.getSuccesfulRaftBuildMessage();
-
-
-                  }else{
-                      message = view.getNotSuccesfulRaftBuildMessage();
-
-                  }
-
-                }else{
-                    message = view.getNotInRaftLocationBuildMessage();
-
+            //--- DROP ------//
+            case DROP: {
+                var currentLocationInventory = game.getCurrentLocationInventory();
+                var playerInventory = game.getPlayerInventory();
+                try {
+                    game.transferItemFromTo(playerInventory,
+                        currentLocationInventory,
+                        command[1]);
+                } catch (InventoryEmptyException e) {
+                    message = view.getInvalidItemMessage();
                 }
-
+                break;
             }
+            //--- CRAFT ---//
+            case CRAFT: {
+                if (command[1].equals("raft")) {
+                    if (game.getCurrentLocation() instanceof CraftingLocation) {
+                        //Craft raft
+                        if (game.craftRaft()) {
+                            message = view.getSuccesfulRaftBuildMessage();
+
+                        } else {
+                            message = view.getNotSuccesfulRaftBuildMessage();
+                        }
+
+                    } else {
+                        message = view.getNotInRaftLocationBuildMessage();
+                    }
+
+                } else {
+                    message = "Item not craftable.";
+                }
+                break;
+            }
+
+            case ESCAPE: {
+                if (game.getCurrentLocationItems().containsKey("raft")) {
+                    message = "Congratulations! You've escaped this island!";
+                    keepPlaying = false;
+                } else {
+                    message = "You cannot escape without a raft!";
+                }
+                break;
+            }
+            case QUIT: {
+                keepPlaying = false;
+                break;
+            }
+            default:
+                message = view.getInvalidCommandMessage();
+                break;
         }
     }
 
     // returns false if command is not found in the Commands enum
     private boolean isValidCommand(String[] command) {
-        boolean valid = false;
-        for (Commands c : Commands.values()) {
+        for (Commands c : values()) {
             if (c.getValue().equals(command[0])) {
-                valid = true;
                 break;
             }
         }
-        if ((!command[0].equals(Commands.HELP.getValue()) && !command[0].equals(
-            Commands.QUIT.getValue()) && !command[0].equals(Commands.ESCAPE.getValue())) && command.length < 2) {
-            valid = false;
+        switch (Commands.valueOf(command[0].toUpperCase())) {
+            case GO:
+            case GRAB:
+            case INSPECT:
+            case DROP:
+            case CRAFT:
+                return command.length >= 2;
+            default:
+                return true;
         }
-        return valid;
+
     }
 
     public void updateView() {
