@@ -78,79 +78,79 @@ public class Controller {
 
       // PROCESS COMMAND
     }else {
-      processCommand2(command);
+      processCommand(command);
     }
 
     return keepPlaying;
   }
 
 
+//  public void processCommand(String[] command) {
+//    // HELP COMMAND
+//    if (command[0].equals(HELP.getValue())) {
+//      message = view.getHelpCommands();
+//
+//      // GO COMMAND
+//    } else if (command[0].equals(GO.getValue())) {
+//
+//      try {
+//        game.moveLocation(command);
+//      } catch (InvalidLocationException e) {
+//        message = view.getInvalidLocationMessage();
+//      }
+//
+//      // INSPECT COMMAND
+//    } else if (command[0].equals(INSPECT.getValue())) {
+//      if (game.inspectItem(command) != null) {
+//        message = view.getItemDescription(game.inspectItem(command));
+//      }
+//
+//      // either GRAB or DROP COMMAND
+//    } else if (command[0].equals(GRAB.getValue()) || command[0].equals(
+//        DROP.getValue())) {
+//      var currentLocationInventory = game.getCurrentLocationInventory();
+//      var playerInventory = game.getPlayerInventory();
+//
+//      try {
+//        // GRAB COMMAND
+//        if (command[0].equals(GRAB.getValue())) {
+//          // GRABBING LOG
+//          if (command[1].equals("log") && !playerInventory.getInventory().containsKey("machete")) {
+//            message = view.cantGrabItem();
+//          } else {
+//            game.transferItemFromTo(currentLocationInventory, playerInventory, command[1]);
+//          }
+//
+//          // DROP COMMAND
+//        } else {
+//          game.transferItemFromTo(playerInventory, currentLocationInventory, command[1]);
+//        }
+//      } catch (InventoryEmptyException e) {
+//        view.getInvalidItemMessage();
+//      }
+//    } else if (command[0].equals(CRAFT.getValue())) {
+//      if (command[1].equals("raft")) {
+//        if (game.getCurrentLocation() instanceof CraftingLocation) {
+//          //Craft raft
+//          if (game.craftRaft()) {
+//            message = view.getSuccesfulRaftBuildMessage();
+//
+//
+//          } else {
+//            message = view.getNotSuccesfulRaftBuildMessage();
+//
+//          }
+//
+//        } else {
+//          message = view.getNotInRaftLocationBuildMessage();
+//
+//        }
+//
+//      }
+//    }
+//  }
+
   public void processCommand(String[] command) {
-    // HELP COMMAND
-    if (command[0].equals(HELP.getValue())) {
-      message = view.getHelpCommands();
-
-      // GO COMMAND
-    } else if (command[0].equals(GO.getValue())) {
-
-      try {
-        game.moveLocation(command);
-      } catch (InvalidLocationException e) {
-        message = view.getInvalidLocationMessage();
-      }
-
-      // INSPECT COMMAND
-    } else if (command[0].equals(INSPECT.getValue())) {
-      if (game.inspectItem(command) != null) {
-        message = view.getItemDescription(game.inspectItem(command));
-      }
-
-      // either GRAB or DROP COMMAND
-    } else if (command[0].equals(GRAB.getValue()) || command[0].equals(
-        DROP.getValue())) {
-      var currentLocationInventory = game.getCurrentLocationInventory();
-      var playerInventory = game.getPlayerInventory();
-
-      try {
-        // GRAB COMMAND
-        if (command[0].equals(GRAB.getValue())) {
-          // GRABBING LOG
-          if (command[1].equals("log") && !playerInventory.getInventory().containsKey("machete")) {
-            message = view.cantGrabItem();
-          } else {
-            game.transferItemFromTo(currentLocationInventory, playerInventory, command[1]);
-          }
-
-          // DROP COMMAND
-        } else {
-          game.transferItemFromTo(playerInventory, currentLocationInventory, command[1]);
-        }
-      } catch (InventoryEmptyException e) {
-        view.getInvalidItemMessage();
-      }
-    } else if (command[0].equals(CRAFT.getValue())) {
-      if (command[1].equals("raft")) {
-        if (game.getCurrentLocation() instanceof CraftingLocation) {
-          //Craft raft
-          if (game.craftRaft()) {
-            message = view.getSuccesfulRaftBuildMessage();
-
-
-          } else {
-            message = view.getNotSuccesfulRaftBuildMessage();
-
-          }
-
-        } else {
-          message = view.getNotInRaftLocationBuildMessage();
-
-        }
-
-      }
-    }
-  }
-
-  public void processCommand2(String[] command) {
 
     switch (Commands.valueOf(command[0].toUpperCase())) {
       //---- GO -------//
