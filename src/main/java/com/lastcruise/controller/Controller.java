@@ -120,7 +120,7 @@ public class Controller {
             }
             //---- GRAB -------//
             case PICKUP:
-            case TAKE:
+            case TAKE:{}
             case GRAB: {
                 var currentLocationInventory = game.getCurrentLocationInventory();
                 var playerInventory = game.getPlayerInventory();
@@ -194,6 +194,7 @@ public class Controller {
             }
 
             // MUSIC CONTROLS
+            case VOL:
             case VOLUME: {
                 if (command[1].equals("up")) {
                     Music.increaseMusic();
@@ -219,7 +220,7 @@ public class Controller {
                     break;
                 }
             }
-
+            case FX:
             case SOUND: {
                 if (command[1].equals("up")) {
                     SoundEffect.increaseFxVolume();
@@ -245,7 +246,7 @@ public class Controller {
     private boolean isValidCommand(String[] command) {
         boolean check = false;
         for (Commands c : values()) {
-            if (c.getValue().equals(command[0])) {
+            if (Commands.valueOf(String.valueOf(command[0].toUpperCase())).equals(c)) {
                 check = true;
                 break;
             }
@@ -260,8 +261,10 @@ public class Controller {
                 case DROP:
                 case CRAFT:
                 case BUILD:
+                case VOL:
                 case VOLUME:
                 case MUSIC:
+                case FX:
                 case SOUND:
                     return command.length >= 2;
                 default:

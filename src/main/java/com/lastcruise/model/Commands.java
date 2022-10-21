@@ -12,9 +12,11 @@ public enum Commands {
     CRAFT("craft"),
     QUIT("quit"),
     ESCAPE("escape"),
+    VOL("volume"),
 
     VOLUME("volume"),
     MUSIC("music"),
+    FX("sound"),
     SOUND("sound");
 
 
