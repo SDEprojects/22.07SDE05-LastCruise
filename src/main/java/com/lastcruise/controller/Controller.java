@@ -22,12 +22,9 @@ public class Controller {
     private final View view = new View();
     private String name;
     private Game game;
-
     private String message = "";
-
     private boolean keepPlaying = true;
-
-
+    private final GameLoader gameLoader = new GameLoader();
     public boolean gameSetUp() {
         String input;
         boolean start = false;
@@ -45,13 +42,25 @@ public class Controller {
                 view.printStoryIntro(name);
                 game = new Game(name);
                 updateView();
+
+            } else if (input.equals("load")) {
+                start = true;
+                view.printStoryIntro(name);
+                try {
+                    game = gameLoader.loadGame();
+                } catch (Exception e){
+                    System.out.println("Couldn't find the saved game. Starting a new game");
+                    getPlayerName();
+                    game = new Game(name);
+                } finally {
+                    updateView();
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return start;
     }
-
 
     public void getPlayerName() {
         try {
@@ -235,6 +244,15 @@ public class Controller {
                     break;
                 }
             }
+            case SAVE: {
+                try {
+                    gameLoader.saveGame(game);
+                    message = "Game is successfully saved!";
+                } catch (IOException e) {
+                    message = "Unable to save the game!";;
+                }
+                break;
+            }
             default:
                 message = view.getInvalidCommandMessage();
                 break;
@@ -245,7 +263,7 @@ public class Controller {
     private boolean isValidCommand(String[] command) {
         boolean check = false;
         for (Commands c : values()) {
-            if (c.getValue().equals(command[0])) {
+            if (Commands.valueOf(String.valueOf(command[0].toUpperCase())).equals(c)) {
                 check = true;
                 break;
             }
