@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>groupId</groupId>
   <artifactId>22.07SDE05-LastCruise</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.2</version>
   <build>
     <plugins>
       <plugin>

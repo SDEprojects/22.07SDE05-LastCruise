@@ -11,7 +11,11 @@ public enum Commands {
     BUILD("craft"),
     CRAFT("craft"),
     QUIT("quit"),
-    ESCAPE("escape");
+    ESCAPE("escape"),
+
+    VOLUME("volume"),
+    MUSIC("music"),
+    SOUND("sound");
 
 
     private final String value;
