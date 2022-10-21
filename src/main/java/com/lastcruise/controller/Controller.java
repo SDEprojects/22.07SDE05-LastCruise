@@ -9,17 +9,20 @@ import com.lastcruise.model.Game;
 import com.lastcruise.model.GameMap.InvalidLocationException;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
 import com.lastcruise.model.Music;
+import com.lastcruise.model.PuzzleClient;
 import com.lastcruise.model.SoundEffect;
 import com.lastcruise.view.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Objects;
 
 
 public class Controller {
 
     private final View view = new View();
+    PuzzleClient puzzleClient = new PuzzleClient();
     private String name;
     private Game game;
     private String message = "";
@@ -109,8 +112,34 @@ public class Controller {
             case GO: {
                 try {
                     game.moveLocation(command);
+
+                    if(game.getCurrentLocationName().equals("PIT")) {
+                        System.out.println("you are now in the pit");
+                        message = view.puzzleMessagePrompt();
+                        updateView();
+
+                        if(puzzleClient.generatePuzzle()){
+
+                            message = view.solvedPuzzleMessage();
+                        }else
+                        {
+                            message = " ";
+                            System.out.println(view.unSolvedPuzzleMessage());
+
+                            System.out.println( "You.....failed the test, Now you must sleep..");
+
+                            for (int a = 0; a< 10; a++){
+                                Thread.sleep(1000);
+                                System.out.println(a +"0"+ " Years later..");
+
+                            }
+                        }
+
+                    }
                 } catch (InvalidLocationException e) {
                     message = view.getInvalidLocationMessage();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
                 break;
             }

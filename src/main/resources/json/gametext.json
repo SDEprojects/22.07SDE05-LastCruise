@@ -17,5 +17,9 @@
   "CantGrabItem": "You need something else to grab that item",
   "ItemNotCraftable": "Item not craftable.",
   "CantEscape" : "You cannot escape without a raft!",
-  "Win": "Congratulations! You've escaped this island!"
+  "Win": "Congratulations! You've escaped this island!",
+  "SolvedPuzzle": "Congratulations! You passed the test! Continue in your search",
+  "UnSolvedPuzzle": "years have gone by.. you must escape the island",
+  "PuzzlePrompt": "Solve this puzzle or be stuck here for centuries!!!"
+
 }

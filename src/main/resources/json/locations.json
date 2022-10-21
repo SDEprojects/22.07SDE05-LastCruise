@@ -46,7 +46,15 @@
       "steelpipe",
       "machete"
     ],
-    "east": "JUNGLE"
+    "east": "JUNGLE",
+    "west": "PIT"
+  },
+  {
+    "type": "normal",
+    "name": "PIT",
+    "description": " 250 meters deep, air filled with a substance that makes you fall asleep. ",
+    "itemNames": [],
+    "east": "OLD MINE"
   }
 
 ]
