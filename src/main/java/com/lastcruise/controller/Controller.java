@@ -2,15 +2,20 @@ package com.lastcruise.controller;
 
 import static com.lastcruise.model.Commands.*;
 
+import com.lastcruise.Main;
+import com.lastcruise.model.AllSounds;
 import com.lastcruise.model.Commands;
 import com.lastcruise.model.CraftingLocation;
 import com.lastcruise.model.Game;
 import com.lastcruise.model.GameMap.InvalidLocationException;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
+import com.lastcruise.model.Music;
+import com.lastcruise.model.SoundEffect;
 import com.lastcruise.view.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 
 public class Controller {
@@ -68,7 +73,7 @@ public class Controller {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             input = reader.readLine().toLowerCase().trim();
             command = input.split("\\s+");
-            if(command[0].equals("pick") && command[1].equals("up")){
+            if (command[0].equals("pick") && command[1].equals("up")) {
                 command[0] = "pickup";
                 command[1] = command[2];
             }
@@ -91,7 +96,7 @@ public class Controller {
     public void processCommand(String[] command) {
         Commands c = Commands.valueOf(command[0].toUpperCase());
 
-        switch (c){
+        switch (c) {
             //---- GO -------//
             case GO: {
                 try {
@@ -103,6 +108,7 @@ public class Controller {
             }
             //---- HELP -------//
             case HELP: {
+                Music.muteMusic();
                 message = view.getHelpCommands();
                 break;
             }
@@ -127,6 +133,9 @@ public class Controller {
                     try {
                         game.transferItemFromTo(currentLocationInventory, playerInventory,
                             command[1]);
+                        URL grabSoundUrl = getClass().getResource(
+                            AllSounds.ALL_SOUNDS.get("pickup"));
+                        SoundEffect.runAudio(grabSoundUrl);
                     } catch (InventoryEmptyException e) {
                         message = view.getInvalidItemMessage();
                     }
@@ -141,6 +150,8 @@ public class Controller {
                     game.transferItemFromTo(playerInventory,
                         currentLocationInventory,
                         command[1]);
+                    URL dropSoundUrl = getClass().getResource(AllSounds.ALL_SOUNDS.get("drop"));
+                    SoundEffect.runAudio(dropSoundUrl);
                 } catch (InventoryEmptyException e) {
                     message = view.getInvalidItemMessage();
                 }
@@ -182,6 +193,49 @@ public class Controller {
                 keepPlaying = false;
                 break;
             }
+
+            // MUSIC CONTROLS
+            case VOLUME: {
+                if (command[1].equals("up")) {
+                    Music.increaseMusic();
+                    break;
+                } else if (command[1].equals("down")) {
+                    Music.decreaseMusic();
+                    break;
+                } else if (command[1].equals("mute")) {
+                    Music.muteMusic();
+                    break;
+                } else if (command[1].equals("unmute")) {
+                    Music.unMuteMusic();
+                    break;
+                }
+            }
+
+            case MUSIC: {
+                if (command[1].equals("off")) {
+                    Music.muteMusic();
+                    break;
+                } else if (command[1].equals("on")) {
+                    Music.unMuteMusic();
+                    break;
+                }
+            }
+
+            case SOUND: {
+                if (command[1].equals("up")) {
+                    SoundEffect.increaseFxVolume();
+                    break;
+                } else if (command[1].equals("down")) {
+                    SoundEffect.decreaseFxVolume();
+                    break;
+                } else if (command[1].equals("off")) {
+                    SoundEffect.muteSoundFx();
+                    break;
+                } else if (command[1].equals("on")) {
+                    SoundEffect.unMuteSoundFx();
+                    break;
+                }
+            }
             default:
                 message = view.getInvalidCommandMessage();
                 break;
@@ -190,25 +244,32 @@ public class Controller {
 
     // returns false if command is not found in the Commands enum
     private boolean isValidCommand(String[] command) {
+        boolean check = false;
         for (Commands c : values()) {
             if (c.getValue().equals(command[0])) {
+                check = true;
                 break;
             }
         }
-        switch (Commands.valueOf(command[0].toUpperCase().replaceAll("\\s", ""))) {
-            case GO:
-            case GRAB:
-            case PICKUP:
-            case TAKE:
-            case INSPECT:
-            case DROP:
-            case CRAFT:
-            case BUILD:
-                return command.length >= 2;
-            default:
-                return true;
+        if(check){
+            switch (Commands.valueOf(command[0].toUpperCase().replaceAll("\\s", ""))) {
+                case GO:
+                case GRAB:
+                case PICKUP:
+                case TAKE:
+                case INSPECT:
+                case DROP:
+                case CRAFT:
+                case BUILD:
+                case VOLUME:
+                case MUSIC:
+                case SOUND:
+                    return command.length >= 2;
+                default:
+                    return true;
+            }
         }
-
+        return false;
     }
 
     public void updateView() {
