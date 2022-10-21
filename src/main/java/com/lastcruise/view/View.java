@@ -13,7 +13,7 @@ public class View {
   }
 
   public void printGameBanner() {
-    System.out.println(GAME_TEXT.get("Banner"));
+    System.out.println(Colors.GREEN+ GAME_TEXT.get("Banner") +Colors.RESET);
   }
 
   public void printStory() {
@@ -60,58 +60,57 @@ public class View {
 
   //------------VIEW MESSAGES------------------------------------------
   public String getItemDescription(String description) {
-    return String.format(GAME_TEXT.get("ItemDescription"), description);
+    return String.format(Colors.BLUE + GAME_TEXT.get("ItemDescription")+ Colors.RESET, description);
   }
 
   public String getInvalidItemMessage() {
-    return GAME_TEXT.get("ItemNotFound");
+    return Colors.RED + GAME_TEXT.get("ItemNotFound")+  Colors.RESET;
   }
 
   public String getInvalidCommandMessage() {
-    return GAME_TEXT.get("InvalidCommand");
+    return Colors.RED + GAME_TEXT.get("InvalidCommand")+Colors.RESET;
   }
 
   public String getInvalidLocationMessage() {
-    return GAME_TEXT.get("InvalidLocation");
+      return Colors.RED + GAME_TEXT.get("InvalidLocation") +Colors.RESET;
   }
 
-  public String getSuccesfulRaftBuildMessage() {
-    return GAME_TEXT.get("BuildSuccessful");
+  public String getSuccessfulRaftBuildMessage() {
+    return Colors.GREEN + GAME_TEXT.get("BuildSuccessful") + Colors.RESET;
   }
 
-  public String getNotSuccesfulRaftBuildMessage() {
-    return GAME_TEXT.get("BuildNotSuccessful");
+  public String getNotSuccessfulRaftBuildMessage() {
+    return Colors.RED + GAME_TEXT.get("BuildNotSuccessful") + Colors.RESET;
   }
 
   public String getNotInRaftLocationBuildMessage() {
-    return GAME_TEXT.get("InvalidCraftingLocation");
+    return Colors.RED + GAME_TEXT.get("InvalidCraftingLocation") + Colors.RESET;
   }
 
   public String getHelpCommands() {
-    return GAME_TEXT.get("Help");
+    return Colors.BLUE + GAME_TEXT.get("Help")+ Colors.RESET;
   }
 
   public String cantGrabItem() {
-    return GAME_TEXT.get("CantGrabItem");
+    return Colors.RED+ GAME_TEXT.get("CantGrabItem")+ Colors.RESET;
   }
 
   public String getItemNotCraftable(){
-    return GAME_TEXT.get("ItemNotCraftable");
+    return Colors.RED + GAME_TEXT.get("ItemNotCraftable")+ Colors.RESET;
 
   }
 
   public String getCantEscape(){
-    return GAME_TEXT.get("CantEscape");
+    return Colors.RED+ GAME_TEXT.get("CantEscape") + Colors.RESET;
   }
 
   public String getYouWonMessage(){
-    return GAME_TEXT.get("Win");
+    return Colors.GREEN + GAME_TEXT.get("Win")+ Colors.RESET;
   }
 
   public void clearConsole() {
-    for (int i = 0; i < 50; i++) {
-      System.out.println();
-    }
-
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
   }
+
 }

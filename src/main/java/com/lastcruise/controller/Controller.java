@@ -2,7 +2,6 @@ package com.lastcruise.controller;
 
 import static com.lastcruise.model.Commands.*;
 
-import com.lastcruise.Main;
 import com.lastcruise.model.AllSounds;
 import com.lastcruise.model.Commands;
 import com.lastcruise.model.CraftingLocation;
@@ -164,10 +163,10 @@ public class Controller {
                     if (game.getCurrentLocation() instanceof CraftingLocation) {
                         //Craft raft
                         if (game.craftRaft()) {
-                            message = view.getSuccesfulRaftBuildMessage();
+                            message = view.getSuccessfulRaftBuildMessage();
 
                         } else {
-                            message = view.getNotSuccesfulRaftBuildMessage();
+                            message = view.getNotSuccessfulRaftBuildMessage();
                         }
 
                     } else {
@@ -273,6 +272,7 @@ public class Controller {
     }
 
     public void updateView() {
+        view.clearConsole();
         String location = game.getCurrentLocationName();
         String inventory = game.getPlayerInventory().getInventory().keySet().toString();
         String locationDesc = game.getCurrentLocationDesc();
