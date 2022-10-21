@@ -133,6 +133,19 @@ public class View {
     return Colors.GREEN + GAME_TEXT.get("Win")+ Colors.RESET;
   }
 
+  public String solvedPuzzleMessage(){
+    return Colors.GREEN + GAME_TEXT.get("SolvedPuzzle")+ Colors.RESET;
+  }
+  public String unSolvedPuzzleMessage(){
+
+    return Colors.RED + GAME_TEXT.get("UnSolvedPuzzle")+ Colors.RESET;
+  }
+
+  public String puzzleMessagePrompt(){
+    return Colors.GREEN + GAME_TEXT.get("PuzzlePrompt")+ Colors.RESET;
+  }
+
+
   public void clearConsole() {
     System.out.print("\033[H\033[2J");
     System.out.flush();
