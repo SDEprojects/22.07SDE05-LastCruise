@@ -3,6 +3,8 @@ package com.lastcruise.model;
 public enum Commands {
     GO,
     HELP,
+    EAT,
+    SLEEP,
     GRAB,
     PICKUP,
     TAKE,

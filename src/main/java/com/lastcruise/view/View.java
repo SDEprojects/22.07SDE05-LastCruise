@@ -44,18 +44,11 @@ public class View {
     System.out.print(GAME_TEXT.get("StartGamePrompt"));
   }
 
-  public void printStatusBanner(String location, String inventory, String locationDesc,
+  public void printStatusBanner(String location, String stamina, String inventory, String locationDesc,
       String locationItems, String message) {
-    System.out.printf(GAME_TEXT.get("Status"), location, inventory, locationDesc, locationItems,
+    System.out.printf(GAME_TEXT.get("Status"), location, stamina, inventory, locationDesc, locationItems,
         message);
-//    System.out.printf(
-//              "______________________________________________________________________________________________________%n"
-//            + "Location: %s                                 Inventory: %s%n"
-//            + "______________________________________________________________________________________________________%n%n"
-//            + "Description: %s %n"
-//            + "Location Items: %s %n%n"
-//            + "%s%n"
-//            + "%n> ", location, inventory, locationDesc, locationItems, message);
+
   }
 
   //------------VIEW MESSAGES------------------------------------------
@@ -97,7 +90,39 @@ public class View {
 
   public String getItemNotCraftable(){
     return Colors.RED + GAME_TEXT.get("ItemNotCraftable")+ Colors.RESET;
+  }
+  public String getItemNotEdible(){
+    return Colors.RED + GAME_TEXT.get("YouCantEatThat")+ Colors.RESET;
+  }
 
+  public String getSleeping(){
+    return Colors.BLUE + GAME_TEXT.get("Sleep")+ Colors.RESET;
+  }
+
+  public String getNoPickUpStamina(){
+    return Colors.RED + GAME_TEXT.get("NotEnoughPickUpStamina")+ Colors.RESET;
+  }
+  public String getNoDropStamina(){
+    return Colors.RED + GAME_TEXT.get("NotEnoughDropStamina")+ Colors.RESET;
+  }
+
+  public String getGameSaved(){
+    return Colors.BLUE + GAME_TEXT.get("GameSaved")+ Colors.RESET;
+  }
+  public String getGameSaveFailed(){
+    return Colors.RED + GAME_TEXT.get("GameSaveFailed")+ Colors.RESET;
+  }
+  public String getEating(){
+    return Colors.BLUE + GAME_TEXT.get("EatItem")+ Colors.RESET;
+  }
+  public String getCantEatThat(){
+    return Colors.RED + GAME_TEXT.get("YouCantEatThat")+ Colors.RESET;
+  }
+  public void printCantLoadGame(){
+    System.out.println(Colors.RED + GAME_TEXT.get("NoSavedGame")+ Colors.RESET);
+  }
+  public String getNoStaminaToMove(){
+    return Colors.RED + GAME_TEXT.get("CantMove")+ Colors.RESET;
   }
 
   public String getCantEscape(){
