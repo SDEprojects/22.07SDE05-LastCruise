@@ -10,8 +10,6 @@ public class Item {
 
     private Set<String> required;
 
-
-
     public String getName() {
         return name;
     }
@@ -32,12 +30,8 @@ public class Item {
         return required;
     }
 
-    public void setRequired(List<String> requiredItemList) {
-        //this.required = requiredItemList
-        required = new HashSet<>() ;
-        required.addAll(requiredItemList);
-//
-
+    public void setRequired(Set<String> required) {
+        this.required = required;
     }
 
     @Override

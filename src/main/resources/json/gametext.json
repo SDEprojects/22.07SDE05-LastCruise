@@ -5,7 +5,7 @@
   "StoryIntro": "Welcome aboard %s. We are expecting to arrive in a few hours.%n%nA few hours later......%n%n%nCaptain: Attention Passengers! There is a bad storm a head of us. We can't turn the ship around%nCaptain: MAYDAY! MAYDAY! MAYDAY!%nShipwreck! You jump in the water and swim to the nearest land%n%n",
   "Instructions": "INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands. You can 'quit' at anytime\n",
   "Status": "______________________________________________________________________________________________________%nLocation: %s                                 Inventory: %s%n______________________________________________________________________________________________________%n%nDescription: %s %nLocation Items: %s %n%n%s%n%n> ",
-  "StartGamePrompt": "Would you like to start the game? enter ('yes' or 'no') ",
+  "StartGamePrompt": "Would you like to start the game? \nEnter: \n\t'yes' - to start a new game\n\t'load' - to load an existing game\n\t'no' - to quit\n>",
   "NamePrompt": "\nCaptain : Welcome Aboard Ship Maximus! May I have your name: ",
   "InvalidCommand": "Invalid command entered\n",
   "InvalidLocation": "You can't go that way!",

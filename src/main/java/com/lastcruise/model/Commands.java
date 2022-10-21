@@ -1,31 +1,19 @@
 package com.lastcruise.model;
 
 public enum Commands {
-    GO("go"),
-    HELP("help"),
-    GRAB("grab"),
-    PICKUP("grab"),
-    TAKE("grab"),
-    DROP("drop"),
-    INSPECT("inspect"),
-    BUILD("craft"),
-    CRAFT("craft"),
-    QUIT("quit"),
-    ESCAPE("escape"),
-
-    VOLUME("volume"),
-    MUSIC("music"),
-    SOUND("sound");
-
-
-    private final String value;
-
-    Commands(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
+    GO,
+    HELP,
+    GRAB,
+    PICKUP,
+    TAKE,
+    DROP,
+    INSPECT,
+    BUILD,
+    CRAFT,
+    QUIT,
+    ESCAPE,
+    VOLUME,
+    MUSIC,
+    SOUND,
+    SAVE
 }
