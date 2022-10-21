@@ -32,5 +32,25 @@
     "name": "raft",
     "description": "raft description",
     "required": ["log","cloth","rope","steelpipe","paddle"]
+  },
+  {
+    "name": "berries",
+    "description": "juicy blueberries. They look edible",
+    "edible": true
+  },
+  {
+    "name": "banana",
+    "description": "ripe banana",
+    "edible": true
+  },
+  {
+    "name": "mushroom",
+    "description": "strange mushroom growing out of the cement",
+    "edible": true
+  },
+  {
+    "name": "water",
+    "description": "drinkable water",
+    "edible": true
   }
 ]

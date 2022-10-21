@@ -3,18 +3,21 @@ package com.lastcruise.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lastcruise.model.GameMap.InvalidLocationException;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
+import com.lastcruise.model.Player.ItemNotEdibleException;
+import com.lastcruise.model.Player.NoEnoughStaminaException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Game {
 
-    private GameCharacter player;
+    private Player player;
+
     private GameMap gameMap;
 
     private static final String STARTING_LOCATION = "BEACH";
 
-    public Game(){
+    public Game() {
 
     }
 
@@ -54,15 +57,30 @@ public class Game {
         return player.getInventory();
     }
 
+    @JsonIgnore
+    public String getPlayerStamina() {
+        return String.valueOf(player.getStamina());
+    }
 
-    public void moveLocation(String[] direction) throws InvalidLocationException {
+    public void moveLocation(String[] direction)
+        throws InvalidLocationException, NoEnoughStaminaException {
         gameMap.updateCurrentLocation(direction);
+        player.reduceStaminaMove();
     }
 
     public void transferItemFromTo(Inventory from, Inventory to, String itemName)
-        throws InventoryEmptyException {
-        Item removed = from.remove(itemName);
-        to.add(itemName, removed);
+        throws InventoryEmptyException, NoEnoughStaminaException {
+        if(!GameItems.GAME_ITEMS_HASHMAP.containsKey(itemName)){
+            throw new InventoryEmptyException();
+        }
+        if (GameItems.GAME_ITEMS_HASHMAP.get(itemName).getEdible()) {
+            Item removed = from.remove(itemName);
+            to.add(itemName, removed);
+        } else {
+            player.reduceStaminaPickUp();
+            Item removed = from.remove(itemName);
+            to.add(itemName, removed);
+        }
     }
 
     public String inspectItem(String[] command) {
@@ -71,7 +89,10 @@ public class Game {
             return getCurrentLocationItems().get(item).getDescription();
         }
         return null;
+    }
 
+    public void eatItem(String itemName) throws InventoryEmptyException, ItemNotEdibleException {
+        player.consumeItem(itemName);
     }
 
     public boolean craftRaft() {
@@ -91,13 +112,14 @@ public class Game {
         return false;
     }
 
-
-
-    public GameCharacter getPlayer() {
+    public  void playerSleep(){
+        player.sleep();
+    }
+    public Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(GameCharacter player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 

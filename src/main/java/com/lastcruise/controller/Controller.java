@@ -10,6 +10,8 @@ import com.lastcruise.model.GameMap.InvalidLocationException;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
 import com.lastcruise.model.Music;
 import com.lastcruise.model.PuzzleClient;
+import com.lastcruise.model.Player.ItemNotEdibleException;
+import com.lastcruise.model.Player.NoEnoughStaminaException;
 import com.lastcruise.model.SoundEffect;
 import com.lastcruise.view.View;
 import java.io.BufferedReader;
@@ -48,11 +50,12 @@ public class Controller {
 
             } else if (input.equals("load")) {
                 start = true;
-                view.printStoryIntro(name);
+
                 try {
+                    view.printStoryIntro(name);
                     game = gameLoader.loadGame();
                 } catch (Exception e){
-                    System.out.println("Couldn't find the saved game. Starting a new game");
+                    view.printCantLoadGame();
                     getPlayerName();
                     game = new Game(name);
                 } finally {
@@ -138,8 +141,13 @@ public class Controller {
                     }
                 } catch (InvalidLocationException e) {
                     message = view.getInvalidLocationMessage();
+
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
+
+                }catch(NoEnoughStaminaException e){
+                    message = view.getNoStaminaToMove();
+
                 }
                 break;
             }
@@ -175,7 +183,10 @@ public class Controller {
                         SoundEffect.runAudio(grabSoundUrl);
                     } catch (InventoryEmptyException e) {
                         message = view.getInvalidItemMessage();
+                    }catch(NoEnoughStaminaException e){
+                        message = view.getNoPickUpStamina();
                     }
+
                 }
                 break;
             }
@@ -191,6 +202,8 @@ public class Controller {
                     SoundEffect.runAudio(dropSoundUrl);
                 } catch (InventoryEmptyException e) {
                     message = view.getInvalidItemMessage();
+                }catch (NoEnoughStaminaException e){
+                    message = view.getNoDropStamina();
                 }
                 break;
             }
@@ -216,7 +229,22 @@ public class Controller {
                 }
                 break;
             }
-
+            case EAT:{
+                try{
+                    game.eatItem(command[1]);
+                    message = view.getEating();
+                } catch (InventoryEmptyException e) {
+                    message = view.getInvalidItemMessage();
+                } catch (ItemNotEdibleException e) {
+                    message = view.getCantEatThat();
+                }
+                break;
+            }
+            case SLEEP:{
+                game.playerSleep();
+                message = view.getSleeping();
+                break;
+            }
             case ESCAPE: {
                 if (game.getCurrentLocationItems().containsKey("raft")) {
                     message = view.getYouWonMessage();
@@ -276,9 +304,9 @@ public class Controller {
             case SAVE: {
                 try {
                     gameLoader.saveGame(game);
-                    message = "Game is successfully saved!";
+                    message = view.getGameSaved();
                 } catch (IOException e) {
-                    message = "Unable to save the game!";;
+                    message = view.getGameSaveFailed();
                 }
                 break;
             }
@@ -300,6 +328,7 @@ public class Controller {
         if(check){
             switch (Commands.valueOf(command[0].toUpperCase().replaceAll("\\s", ""))) {
                 case GO:
+                case EAT:
                 case GRAB:
                 case PICKUP:
                 case TAKE:
@@ -322,10 +351,11 @@ public class Controller {
         view.clearConsole();
         String location = game.getCurrentLocationName();
         String inventory = game.getPlayerInventory().getInventory().keySet().toString();
+        String stamina = game.getPlayerStamina();
         String locationDesc = game.getCurrentLocationDesc();
         String locationItems = game.getCurrentLocationItems().keySet().toString();
 
-        view.printStatusBanner(location, inventory, locationDesc, locationItems, message);
+        view.printStatusBanner(location, stamina, inventory, locationDesc, locationItems, message);
         message = "";
     }
 }

@@ -100,7 +100,7 @@ public class GameMap {
     currentLocation = locations.get(currentLocationName);
   }
 
-  public class InvalidLocationException extends Throwable {
+  public static class InvalidLocationException extends Throwable {
 
   }
 }

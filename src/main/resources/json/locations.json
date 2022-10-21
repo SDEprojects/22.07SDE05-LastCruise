@@ -12,7 +12,9 @@
     "description": "At 6.9 million square kilometers (2.72 million square miles),\n the Maximus jungle is roughly the size of the four contiguous United States and covers some 70 percent of the island.\n A river flows through its middle and the sound of birds perching on a lake nearby can be heard if one listens carefully.\n Hidden in the northern part of the jungle is a rope that can come in handy.  ",
     "itemNames": [
       "log",
-      "rope"
+      "rope",
+      "banana",
+      "berries"
     ],
     "north": "LAKE",
     "south": "BEACH",
@@ -24,7 +26,8 @@
     "name": "LAKE",
     "description": "The sight of birds hovering, perching on and diving into this crystal-clear body of water is a sight to behold.\n The lake appears to be clean, but be careful, the water is not safe for drinking",
     "itemNames": [
-      "paddle"
+      "paddle",
+      "water"
     ],
     "south": "JUNGLE"
   },
@@ -34,7 +37,8 @@
     "description": "A dark and dreary place. The only sound that can be heard is the drip, drip, drip of water from the stalactites.\n The air is thick with humidity, and it is difficult to breathe.\n The darkness is so thick that it's impossible to see more than a few feet in front of you. As you look around,\n you see an old blanket hidden between a pile of rocks. ",
     "itemNames": [
       "cloth",
-      "rocks"
+      "rocks",
+      "mushroom"
     ],
     "west": "JUNGLE"
   },

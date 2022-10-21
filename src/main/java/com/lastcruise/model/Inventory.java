@@ -33,7 +33,7 @@ public class Inventory {
     return inventory;
   }
 
-  public class InventoryEmptyException extends Throwable {
+  public static class InventoryEmptyException extends Throwable {
 
   }
 }
