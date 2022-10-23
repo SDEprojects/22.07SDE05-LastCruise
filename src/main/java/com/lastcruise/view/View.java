@@ -142,9 +142,14 @@ public class View {
   }
 
   public String puzzleMessagePrompt(){
-    return Colors.GREEN + GAME_TEXT.get("PuzzlePrompt")+ Colors.RESET;
+    return Colors.RED + GAME_TEXT.get("PuzzlePrompt")+ Colors.RESET;
   }
-
+  public String pitFallPrompt(){
+    return Colors.RED + GAME_TEXT.get("PitFall")+ Colors.RESET;
+  }
+  public String pitFallEscapePrompt(){
+    return Colors.GREEN + GAME_TEXT.get("PitFallEscape")+ Colors.RESET;
+  }
 
   public void clearConsole() {
     System.out.print("\033[H\033[2J");

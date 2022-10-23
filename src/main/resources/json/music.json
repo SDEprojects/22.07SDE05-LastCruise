@@ -1,5 +1,6 @@
 {
   "main": "/audio/theme2.wav",
   "pickup": "/audio/pickup.wav",
-  "drop": "/audio/drop.wav"
+  "drop": "/audio/drop.wav",
+  "pitFall": "/audio/drop.wav"
 }

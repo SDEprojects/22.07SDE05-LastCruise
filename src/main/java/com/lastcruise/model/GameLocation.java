@@ -90,6 +90,8 @@ public class GameLocation {
         this.items = result;
     }
 
+
+
     public void setItems(Inventory items) {
         this.items = items;
     }
