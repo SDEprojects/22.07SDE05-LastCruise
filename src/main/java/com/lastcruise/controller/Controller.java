@@ -35,7 +35,7 @@ public class Controller {
         boolean start = false;
         view.printGameBanner();
         view.printStory();
-        view.printHelpCommands();
+//        view.printHelpCommands();
         view.printInstructions();
 
         try {
@@ -58,6 +58,7 @@ public class Controller {
                 } catch (Exception e){
                     view.printCantLoadGame();
                     getPlayerName();
+                    view.printHelpCommands();
                     game = new Game(name);
                 } finally {
                     updateView();
@@ -154,7 +155,6 @@ public class Controller {
             }
             //---- HELP -------//
             case HELP: {
-                Music.muteMusic();
                 message = view.getHelpCommands();
                 break;
             }
@@ -234,6 +234,8 @@ public class Controller {
                 try{
                     game.eatItem(command[1]);
                     message = view.getEating();
+                    URL eatSoundUrl = getClass().getResource(AllSounds.ALL_SOUNDS.get("eat"));
+                    SoundEffect.runAudio(eatSoundUrl);
                 } catch (InventoryEmptyException e) {
                     message = view.getInvalidItemMessage();
                 } catch (ItemNotEdibleException e) {
@@ -259,34 +261,23 @@ public class Controller {
                 keepPlaying = false;
                 break;
             }
-
-            // MUSIC CONTROLS
-            case VOLUME: {
+            // MUSIC and SOUND EFFECTS CONTROLS
+            case VOLUME:
+            case MUSIC: {
                 if (command[1].equals("up")) {
                     Music.increaseMusic();
                     break;
                 } else if (command[1].equals("down")) {
                     Music.decreaseMusic();
                     break;
-                } else if (command[1].equals("mute")) {
+                } else if (command[1].equals("off") || command[1].equals("mute")) {
                     Music.muteMusic();
                     break;
-                } else if (command[1].equals("unmute")) {
+                } else if (command[1].equals("on") || command[1].equals("unmute")) {
                     Music.unMuteMusic();
                     break;
                 }
             }
-
-            case MUSIC: {
-                if (command[1].equals("off")) {
-                    Music.muteMusic();
-                    break;
-                } else if (command[1].equals("on")) {
-                    Music.unMuteMusic();
-                    break;
-                }
-            }
-
             case SOUND: {
                 if (command[1].equals("up")) {
                     SoundEffect.increaseFxVolume();
@@ -294,14 +285,16 @@ public class Controller {
                 } else if (command[1].equals("down")) {
                     SoundEffect.decreaseFxVolume();
                     break;
-                } else if (command[1].equals("off")) {
+                } else if (command[1].equals("off") || command[1].equals("mute")) {
                     SoundEffect.muteSoundFx();
                     break;
-                } else if (command[1].equals("on")) {
+                } else if (command[1].equals("on") || command[1].equals("unmute")) {
                     SoundEffect.unMuteSoundFx();
                     break;
                 }
             }
+
+            // SAVING THE GAME
             case SAVE: {
                 try {
                     gameLoader.saveGame(game);
@@ -321,7 +314,7 @@ public class Controller {
     private boolean isValidCommand(String[] command) {
         boolean check = false;
         for (Commands c : values()) {
-            if (Commands.valueOf(String.valueOf(command[0].toUpperCase())).equals(c)) {
+            if (c.name().equals(command[0].toUpperCase())) {
                 check = true;
                 break;
             }
