@@ -30,6 +30,7 @@ public class Controller {
     private String message = "";
     private boolean keepPlaying = true;
     private final GameLoader gameLoader = new GameLoader();
+
     public boolean gameSetUp() {
         String input;
         boolean start = false;
@@ -55,7 +56,7 @@ public class Controller {
 
                 try {
                     game = gameLoader.loadGame();
-                } catch (Exception e){
+                } catch (Exception e) {
                     view.printCantLoadGame();
                     getPlayerName();
                     view.printHelpCommands();
@@ -118,11 +119,11 @@ public class Controller {
                 try {
                     game.moveLocation(command);
 
-                    if(game.getCurrentLocationName().equals("PIT")) {
+                    if (game.getCurrentLocationName().equals("PIT")) {
 
-                        URL grabSoundUrl = getClass().getResource(
+                        URL fallSoundUrl = getClass().getResource(
                             AllSounds.ALL_SOUNDS.get("pitFall"));
-                        SoundEffect.runAudio(grabSoundUrl);
+                        SoundEffect.runAudio(fallSoundUrl);
 
                         message = view.pitFallPrompt();
                         updateView();
@@ -130,24 +131,27 @@ public class Controller {
                         message = view.puzzleMessagePrompt();
                         updateView();
 
-                        if(puzzleClient.puzzleGenerator()){
+                        if (puzzleClient.puzzleGenerator()) {
                             message = view.solvedPuzzleMessage();
-                        }else
-                        {
+                        } else {
                             message = view.unSolvedPuzzleMessage();
                             updateView();
                             puzzleClient.puzzlePunishment();
                             message = view.pitFallEscapePrompt();
                         }
-
+                    } else {
+                        URL runSoundUrl = getClass().getResource(
+                            AllSounds.ALL_SOUNDS.get("run"));
+                        SoundEffect.runAudio(runSoundUrl);
                     }
+
                 } catch (InvalidLocationException e) {
                     message = view.getInvalidLocationMessage();
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
 
-                }catch(NoEnoughStaminaException e){
+                } catch (NoEnoughStaminaException e) {
                     message = view.getNoStaminaToMove();
 
                 }
@@ -184,7 +188,7 @@ public class Controller {
                         SoundEffect.runAudio(grabSoundUrl);
                     } catch (InventoryEmptyException e) {
                         message = view.getInvalidItemMessage();
-                    }catch(NoEnoughStaminaException e){
+                    } catch (NoEnoughStaminaException e) {
                         message = view.getNoPickUpStamina();
                     }
 
@@ -203,7 +207,7 @@ public class Controller {
                     SoundEffect.runAudio(dropSoundUrl);
                 } catch (InventoryEmptyException e) {
                     message = view.getInvalidItemMessage();
-                }catch (NoEnoughStaminaException e){
+                } catch (NoEnoughStaminaException e) {
                     message = view.getNoDropStamina();
                 }
                 break;
@@ -230,8 +234,8 @@ public class Controller {
                 }
                 break;
             }
-            case EAT:{
-                try{
+            case EAT: {
+                try {
                     game.eatItem(command[1]);
                     message = view.getEating();
                     URL eatSoundUrl = getClass().getResource(AllSounds.ALL_SOUNDS.get("eat"));
@@ -243,7 +247,7 @@ public class Controller {
                 }
                 break;
             }
-            case SLEEP:{
+            case SLEEP: {
                 game.playerSleep();
                 message = view.getSleeping();
                 break;
@@ -319,7 +323,7 @@ public class Controller {
                 break;
             }
         }
-        if(check){
+        if (check) {
             switch (Commands.valueOf(command[0].toUpperCase().replaceAll("\\s", ""))) {
                 case GO:
                 case EAT:
