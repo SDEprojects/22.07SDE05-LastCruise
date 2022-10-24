@@ -11,13 +11,8 @@ public class PuzzleClient {
 
   int min = 1;
   int max = 7;
-  int randQuestionNumber = (int) (Math.random() * (max - min + 1) + min);
-  String stringValueOfRandomQuestionNumber = String.valueOf(randQuestionNumber);
-
 
   private final Map<String, String> PUZZLE_TEXT;
-
-
 
 
   public PuzzleClient() {
@@ -51,7 +46,7 @@ public class PuzzleClient {
     System.out.println("Puzzle:" + randQuestionNumber);
     System.out.println(PUZZLE_TEXT.get(stringValueOfRandomQuestionNumber));
     Scanner playerResponse = new Scanner(System.in);
-    System.out.print("Enter your response here: ");
+    System.out.print("Enter your response here,[do not type (a) or (b)]: ");
     String answer = playerResponse.nextLine().toUpperCase().trim();
     correctAnswer = answer.equals(randomPuzzleAnswerKey.get(stringValueOfRandomQuestionNumber));
     System.out.println(correctAnswer);
@@ -62,11 +57,16 @@ public class PuzzleClient {
 
   public void puzzlePunishment() throws InterruptedException {
 
+
+    URL grabSoundUrl = getClass().getResource(
+        AllSounds.ALL_SOUNDS.get("pitFall"));
+    SoundEffect.runAudio(grabSoundUrl);
+    puzzleFailureTimer();
     for (int a = 1; a< 11; a++){
       System.out.println(a +"0"+ " Years later..");
-      URL grabSoundUrl = getClass().getResource(
-          AllSounds.ALL_SOUNDS.get("pitFall"));
-      SoundEffect.runAudio(grabSoundUrl);
+      URL grabSoundUrl1 = getClass().getResource(
+          AllSounds.ALL_SOUNDS.get("bell"));
+      SoundEffect.runAudio(grabSoundUrl1);
       puzzleFailureTimer();
 
     }
