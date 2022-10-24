@@ -1,33 +1,43 @@
 package com.lastcruise.controller;
 
+import static com.lastcruise.model.Commands.*;
+
+import com.lastcruise.model.AllSounds;
 import com.lastcruise.model.Commands;
 import com.lastcruise.model.CraftingLocation;
 import com.lastcruise.model.Game;
 import com.lastcruise.model.GameMap.InvalidLocationException;
 import com.lastcruise.model.Inventory.InventoryEmptyException;
+import com.lastcruise.model.Music;
+import com.lastcruise.model.Player.ItemNotEdibleException;
+import com.lastcruise.model.Player.NoEnoughStaminaException;
+import com.lastcruise.model.PuzzleClient;
+import com.lastcruise.model.SoundEffect;
 import com.lastcruise.view.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.net.URL;
 
 
 public class Controller {
 
     private final View view = new View();
+
+    PuzzleClient puzzleClient = new PuzzleClient();
     private String name;
     private Game game;
-
-    private String message ="";
-
+    private String message = "";
+    private boolean keepPlaying = true;
+    private final GameLoader gameLoader = new GameLoader();
 
     public boolean gameSetUp() {
         String input;
         boolean start = false;
         view.printGameBanner();
         view.printStory();
-        view.printHelpCommands();
         view.printInstructions();
+
         try {
             view.printStartGamePrompt();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -37,14 +47,28 @@ public class Controller {
                 getPlayerName();
                 view.printStoryIntro(name);
                 game = new Game(name);
+                System.out.println("enter any key to continue");
+                String continueStory = reader.readLine().trim();
                 updateView();
+            } else if (input.equals("load")) {
+                start = true;
+
+                try {
+                    game = gameLoader.loadGame();
+                } catch (Exception e) {
+                    view.printCantLoadGame();
+                    getPlayerName();
+                    view.printHelpCommands();
+                    game = new Game(name);
+                } finally {
+                    updateView();
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return start;
     }
-
 
     public void getPlayerName() {
         try {
@@ -60,126 +84,281 @@ public class Controller {
     public boolean getCommand() {
         String[] command;
         String input;
-        //  updateView();
+
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             input = reader.readLine().toLowerCase().trim();
             command = input.split("\\s+");
+            if (command[0].equals("pick") && command[1].equals("up")) {
+                command[0] = "pickup";
+                command[1] = command[2];
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         // CHECKS FOR VALID COMMAND
         if (!isValidCommand(command)) {
-            message = view.getInvalidCommandMessage()+view.getHelpCommands();
+            message = view.getInvalidCommandMessage() + view.getHelpCommands();
 
-            // PROCESS COMMAND
-        } else if(command[0].equals(Commands.ESCAPE.getValue())){
-            if(game.getCurrentLocationItems().containsKey("raft")){
-                message = "Congratulations! You've escaped this island!";
-                return false;
-            } else {
-               message = "You cannot escape without a raft!";
-            }
+        // PROCESS COMMAND
         } else {
             processCommand(command);
         }
 
-        // QUIT COMMAND
-        return !command[0].equals(Commands.QUIT.getValue());
+        return keepPlaying;
     }
 
 
     public void processCommand(String[] command) {
-        // HELP COMMAND
-        if (command[0].equals(Commands.HELP.getValue())) {
-            message = view.getHelpCommands();
+        Commands c = Commands.valueOf(command[0].toUpperCase());
 
-            // GO COMMAND
-        } else if (command[0].equals(Commands.GO.getValue())) {
+        switch (c) {
+            //---- GO -------//
+            case GO: {
+                try {
+                    game.moveLocation(command);
 
-            try {
-                game.moveLocation(command);
-            } catch (InvalidLocationException e) {
-                message = view.getInvalidLocationMessage();
-            }
+                    if (game.getCurrentLocationName().equals("PIT")) {
 
-            // INSPECT COMMAND
-        } else if (command[0].equals(Commands.INSPECT.getValue())) {
-            if (game.inspectItem(command) != null) {
-                message = view.getItemDescription(game.inspectItem(command));
-            }
+                        URL fallSoundUrl = getClass().getResource(
+                            AllSounds.ALL_SOUNDS.get("pitFall"));
+                        SoundEffect.runAudio(fallSoundUrl);
 
-            // either GRAB or DROP COMMAND
-        } else if (command[0].equals(Commands.GRAB.getValue()) || command[0].equals(
-            Commands.DROP.getValue())) {
-            var currentLocationInventory = game.getCurrentLocationInventory();
-            var playerInventory = game.getPlayerInventory();
+                        message = view.pitFallPrompt();
+                        updateView();
+                        updateLocationTimer();
+                        message = view.puzzleMessagePrompt();
+                        updateView();
 
-            try {
-                // GRAB COMMAND
-                if (command[0].equals(Commands.GRAB.getValue())) {
-                    // GRABBING LOG
-                    if(command[1].equals("log") && !playerInventory.getInventory().containsKey("machete")){
-                        message = view.cantGrabItem();
-                    }
-                    else{
-                        game.transferItemFromTo(currentLocationInventory, playerInventory, command[1]);
+                        if (puzzleClient.puzzleGenerator()) {
+                            message = view.solvedPuzzleMessage();
+                        } else {
+                            message = view.unSolvedPuzzleMessage();
+                            updateView();
+                            puzzleClient.puzzlePunishment();
+                            message = view.pitFallEscapePrompt();
+                        }
+                    } else {
+                        URL runSoundUrl = getClass().getResource(
+                            AllSounds.ALL_SOUNDS.get("run"));
+                        SoundEffect.runAudio(runSoundUrl);
                     }
 
+                } catch (InvalidLocationException e) {
+                    message = view.getInvalidLocationMessage();
 
-                // DROP COMMAND
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+
+                } catch (NoEnoughStaminaException e) {
+                    message = view.getNoStaminaToMove();
+
+                }
+                break;
+            }
+            //---- HELP -------//
+            case HELP: {
+                message = view.getHelpCommands();
+                break;
+            }
+            //---- INSPECT -------//
+            case INSPECT: {
+                if (game.inspectItem(command) != null) {
+                    message = view.getItemDescription(game.inspectItem(command));
+                }
+                break;
+            }
+            //---- GRAB -------//
+            case PICKUP:
+            case TAKE:
+            case GRAB: {
+                var currentLocationInventory = game.getCurrentLocationInventory();
+                var playerInventory = game.getPlayerInventory();
+                // GRABBING LOG
+                if (command[1].equals("log") && !playerInventory.getInventory()
+                    .containsKey("machete")) {
+                    message = view.cantGrabItem();
                 } else {
-                    game.transferItemFromTo(playerInventory, currentLocationInventory, command[1]);
-                }
-            } catch (InventoryEmptyException e) {
-                view.getInvalidItemMessage();
-            }
-        }
-        else if (command[0].equals(Commands.CRAFT.getValue())){
-            if (command[1].equals("raft")){
-                if(game.getCurrentLocation() instanceof CraftingLocation) {
-                    //Craft raft
-                  if( game.craftRaft()){
-                      message = view.getSuccesfulRaftBuildMessage();
-
-
-                  }else{
-                      message = view.getNotSuccesfulRaftBuildMessage();
-
-                  }
-
-                }else{
-                    message = view.getNotInRaftLocationBuildMessage();
+                    try {
+                        game.transferItemFromTo(currentLocationInventory, playerInventory,
+                            command[1]);
+                        URL grabSoundUrl = getClass().getResource(
+                            AllSounds.ALL_SOUNDS.get("pickup"));
+                        SoundEffect.runAudio(grabSoundUrl);
+                    } catch (InventoryEmptyException e) {
+                        message = view.getInvalidItemMessage();
+                    } catch (NoEnoughStaminaException e) {
+                        message = view.getNoPickUpStamina();
+                    }
 
                 }
-
+                break;
             }
+            //--- DROP ------//
+            case DROP: {
+                var currentLocationInventory = game.getCurrentLocationInventory();
+                var playerInventory = game.getPlayerInventory();
+                try {
+                    game.transferItemFromTo(playerInventory,
+                        currentLocationInventory,
+                        command[1]);
+                    URL dropSoundUrl = getClass().getResource(AllSounds.ALL_SOUNDS.get("drop"));
+                    SoundEffect.runAudio(dropSoundUrl);
+                } catch (InventoryEmptyException e) {
+                    message = view.getInvalidItemMessage();
+                } catch (NoEnoughStaminaException e) {
+                    message = view.getNoDropStamina();
+                }
+                break;
+            }
+            //--- CRAFT ---//
+            case BUILD:
+            case CRAFT: {
+                if (command[1].equals("raft")) {
+                    if (game.getCurrentLocation() instanceof CraftingLocation) {
+                        //Craft raft
+                        if (game.craftRaft()) {
+                            message = view.getSuccessfulRaftBuildMessage();
+
+                        } else {
+                            message = view.getNotSuccessfulRaftBuildMessage();
+                        }
+
+                    } else {
+                        message = view.getNotInRaftLocationBuildMessage();
+                    }
+
+                } else {
+                    message = view.getItemNotCraftable();
+                }
+                break;
+            }
+            case EAT: {
+                try {
+                    game.eatItem(command[1]);
+                    message = view.getEating();
+                    URL eatSoundUrl = getClass().getResource(AllSounds.ALL_SOUNDS.get("eat"));
+                    SoundEffect.runAudio(eatSoundUrl);
+                } catch (InventoryEmptyException e) {
+                    message = view.getInvalidItemMessage();
+                } catch (ItemNotEdibleException e) {
+                    message = view.getCantEatThat();
+                }
+                break;
+            }
+            case SLEEP: {
+                game.playerSleep();
+                message = view.getSleeping();
+                break;
+            }
+            case ESCAPE: {
+                if (game.getCurrentLocationItems().containsKey("raft")) {
+                    message = view.getYouWonMessage();
+                    keepPlaying = false;
+                } else {
+                    message = view.getCantEscape();
+                }
+                break;
+            }
+            case QUIT: {
+                keepPlaying = false;
+                break;
+            }
+            // MUSIC and SOUND EFFECTS CONTROLS
+            case VOLUME:
+            case MUSIC: {
+                if (command[1].equals("up")) {
+                    Music.increaseMusic();
+                    break;
+                } else if (command[1].equals("down")) {
+                    Music.decreaseMusic();
+                    break;
+                } else if (command[1].equals("off") || command[1].equals("mute")) {
+                    Music.muteMusic();
+                    break;
+                } else if (command[1].equals("on") || command[1].equals("unmute")) {
+                    Music.unMuteMusic();
+                    break;
+                }
+            }
+            case SOUND: {
+                if (command[1].equals("up")) {
+                    SoundEffect.increaseFxVolume();
+                    break;
+                } else if (command[1].equals("down")) {
+                    SoundEffect.decreaseFxVolume();
+                    break;
+                } else if (command[1].equals("off") || command[1].equals("mute")) {
+                    SoundEffect.muteSoundFx();
+                    break;
+                } else if (command[1].equals("on") || command[1].equals("unmute")) {
+                    SoundEffect.unMuteSoundFx();
+                    break;
+                }
+            }
+
+            // SAVING THE GAME
+            case SAVE: {
+                try {
+                    gameLoader.saveGame(game);
+                    message = view.getGameSaved();
+                } catch (IOException e) {
+                    message = view.getGameSaveFailed();
+                }
+                break;
+            }
+            default:
+                message = view.getInvalidCommandMessage();
+                break;
         }
     }
 
     // returns false if command is not found in the Commands enum
     private boolean isValidCommand(String[] command) {
-        boolean valid = false;
-        for (Commands c : Commands.values()) {
-            if (c.getValue().equals(command[0])) {
-                valid = true;
+        boolean check = false;
+        for (Commands c : values()) {
+            if (c.name().equals(command[0].toUpperCase())) {
+                check = true;
                 break;
             }
         }
-        if ((!command[0].equals(Commands.HELP.getValue()) && !command[0].equals(
-            Commands.QUIT.getValue()) && !command[0].equals(Commands.ESCAPE.getValue())) && command.length < 2) {
-            valid = false;
+        if (check) {
+            switch (Commands.valueOf(command[0].toUpperCase().replaceAll("\\s", ""))) {
+                case GO:
+                case EAT:
+                case GRAB:
+                case PICKUP:
+                case TAKE:
+                case INSPECT:
+                case DROP:
+                case CRAFT:
+                case BUILD:
+                case VOLUME:
+                case MUSIC:
+                case SOUND:
+                    return command.length >= 2;
+                default:
+                    return true;
+            }
         }
-        return valid;
+        return false;
     }
 
+
+    public void updateLocationTimer() throws InterruptedException {
+        Thread.sleep(3000);
+    }
+
+
     public void updateView() {
+        view.clearConsole();
         String location = game.getCurrentLocationName();
         String inventory = game.getPlayerInventory().getInventory().keySet().toString();
+        String stamina = game.getPlayerStamina();
         String locationDesc = game.getCurrentLocationDesc();
         String locationItems = game.getCurrentLocationItems().keySet().toString();
 
-        view.printStatusBanner(location, inventory, locationDesc, locationItems, message);
+        view.printStatusBanner(location, stamina, inventory, locationDesc, locationItems, message);
         message = "";
     }
 }

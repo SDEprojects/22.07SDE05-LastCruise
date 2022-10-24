@@ -1,16 +1,12 @@
 package com.lastcruise.model;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Item {
     private String name;
     private String description;
-
+    private boolean edible;
     private Set<String> required;
-
-
 
     public String getName() {
         return name;
@@ -32,12 +28,16 @@ public class Item {
         return required;
     }
 
-    public void setRequired(List<String> requiredItemList) {
-        //this.required = requiredItemList
-        required = new HashSet<>() ;
-        required.addAll(requiredItemList);
-//
+    public void setRequired(Set<String> required) {
+        this.required = required;
+    }
 
+    public void setEdible(boolean edible) {
+        this.edible = edible;
+    }
+
+    public boolean getEdible(){
+        return edible;
     }
 
     @Override

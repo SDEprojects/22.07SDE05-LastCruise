@@ -26,3 +26,6 @@ bin/
 #Project metadata
 .idea/
 *.iml
+
+#Saved-game data
+saved-data.json

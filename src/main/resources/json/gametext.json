@@ -1,33 +1,35 @@
-  {
-    "Banner": "\n████████╗██╗░░██╗███████╗  ██╗░░░░░░█████╗░░██████╗████████╗  ░█████╗░██████╗░██╗░░░██╗██╗░██████╗███████╗\n╚══██╔══╝██║░░██║██╔════╝  ██║░░░░░██╔══██╗██╔════╝╚══██╔══╝  ██╔══██╗██╔══██╗██║░░░██║██║██╔════╝██╔════╝\n░░░██║░░░███████║█████╗░░  ██║░░░░░███████║╚█████╗░░░░██║░░░  ██║░░╚═╝██████╔╝██║░░░██║██║╚█████╗░█████╗░░\n░░░██║░░░██╔══██║██╔══╝░░  ██║░░░░░██╔══██║░╚═══██╗░░░██║░░░  ██║░░██╗██╔══██╗██║░░░██║██║░╚═══██╗██╔══╝░░\n░░░██║░░░██║░░██║███████╗  ███████╗██║░░██║██████╔╝░░░██║░░░  ╚█████╔╝██║░░██║╚██████╔╝██║██████╔╝███████╗\n░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ╚══════╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░  ░╚════╝░╚═╝░░╚═╝░╚═════╝░╚═╝╚═════╝░╚══════╝\n",
-
-    "Intro" : "INTRODUCTION:\nBoard the Maximus Ship, and journey into an exciting world.\nThe Maximus will hit an iceberg but you will survive the shipwreck.\nSwim to a nearby island where you have to rely on your navigation skills, strategy and survival instinct to survive and escape the island. \nThe only way to escape the island and win the game is to explore the island, gather useful items, return to the beach, and build a raft.\n",
-
-    "Help" : "Help Commands: \nTo navigate type : 'go [north, south, east, west]' \nTo grab items type: 'grab [item name]'\nTo craft an item type: 'craft [item name]'\nTo inspect an item type: 'inspect [item name]'\n",
-
-    "StoryIntro" : "Welcome aboard %s. We are expecting to arrive in a few hours.%n%nA few hours later......%n%n%nCaptain: Attention Passengers! There is a bad storm a head of us. We can't turn the ship around%nCaptain: MAYDAY! MAYDAY! MAYDAY!%nShipwreck! You jump in the water and swim to the nearest land%n%n",
-
-    "Instructions" : "INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands. You can 'quit' at anytime\n",
-
-    "Status":    "______________________________________________________________________________________________________%nLocation: %s                                 Inventory: %s%n______________________________________________________________________________________________________%n%nDescription: %s %nLocation Items: %s %n%n%s%n%n> ",
-
-    "StartGamePrompt" : "Would you like to start the game? enter ('yes' or 'no') ",
-
-    "NamePrompt" : "\nCaptain : Welcome Aboard Ship Maximus! May I have your name: ",
-
-    "InvalidCommand": "Invalid command entered\n",
-
-    "InvalidLocation": "You can't go that way!",
-
-    "ItemNotFound": "Item not found.Invalid Item entered",
-
-    "ItemDescription": "%nItem Description: %s%n",
-
-    "BuildSuccessful" : "raft build successful",
-
-    "BuildNotSuccessful":"Raft build unsuccessful. You do not have the required items yet.",
-
-     "InvalidCraftingLocation": "You are not in a crafting location",
-
-     "CantGrabItem": "You need something else to grab that item"
-  }
+{
+  "Banner": "\n████████╗██╗░░██╗███████╗  ██╗░░░░░░█████╗░░██████╗████████╗  ░█████╗░██████╗░██╗░░░██╗██╗░██████╗███████╗\n╚══██╔══╝██║░░██║██╔════╝  ██║░░░░░██╔══██╗██╔════╝╚══██╔══╝  ██╔══██╗██╔══██╗██║░░░██║██║██╔════╝██╔════╝\n░░░██║░░░███████║█████╗░░  ██║░░░░░███████║╚█████╗░░░░██║░░░  ██║░░╚═╝██████╔╝██║░░░██║██║╚█████╗░█████╗░░\n░░░██║░░░██╔══██║██╔══╝░░  ██║░░░░░██╔══██║░╚═══██╗░░░██║░░░  ██║░░██╗██╔══██╗██║░░░██║██║░╚═══██╗██╔══╝░░\n░░░██║░░░██║░░██║███████╗  ███████╗██║░░██║██████╔╝░░░██║░░░  ╚█████╔╝██║░░██║╚██████╔╝██║██████╔╝███████╗\n░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ╚══════╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░  ░╚════╝░╚═╝░░╚═╝░╚═════╝░╚═╝╚═════╝░╚══════╝\n",
+  "Intro": "INTRODUCTION:\nBoard the Maximus Ship, and journey into an exciting world.\nThe Maximus will hit an iceberg but you will survive the shipwreck.\nSwim to a nearby island where you have to rely on your navigation skills, strategy and survival instinct to survive and escape the island. \nThe only way to escape the island and win the game is to explore the island, gather useful items, return to the beach, and build a raft.\n Be sure to eat item along the way and sleep to maintain your stamina",
+  "Help": "Help Commands: \n\tTo navigate type : 'go [north, south, east, west]' \n\tTo grab items type: 'grab/pickup/take [item name]'\n\tTo craft an item type: 'craft/build [item name]'\n\tTo eat an item type: 'eat [item name]'\n\tTo sleep to regain energy type: 'sleep'\n\tTo escape with raft type: 'escape'\n\tTo inspect an item type: 'inspect [item name]'\n\tTo adjust music type 'music' or 'volume' then 'up/down/on/off'\n\tTo adjust sound effects: 'sound' or 'fx' then 'up/down/on/off'\n",
+  "StoryIntro": "Welcome aboard %s. We are expecting to arrive in a few hours.%n%nA few hours later......%n%n%nCaptain: Attention Passengers! There is a bad storm a head of us. We can't turn the ship around%nCaptain: MAYDAY! MAYDAY! MAYDAY!%nShipwreck! You jump in the water and swim to the nearest land%n%n",
+  "Instructions": "INSTRUCTIONS: Explore the island and find a way to escape! Type 'help' at anytime to see a list of available commands. You can type 'quit' to exit at anytime\n",
+  "Status": "___________________________________________________________________________________________________________%nLocation:%-20s  Stamina: %-20s  Inventory: %s%n___________________________________________________________________________________________________________%n%nDescription: %s %nLocation Items: %s %n%n%s%n%n> ",
+  "StartGamePrompt": "Would you like to start the game? \nEnter: \n\t'yes' - to start a new game\n\t'load' - to load an existing game\n\t'no' - to quit\n>",
+  "NamePrompt": "\nCaptain : Welcome Aboard Ship Maximus! May I have your name: ",
+  "InvalidCommand": "Invalid command entered\n",
+  "InvalidLocation": "You can't go that way!",
+  "ItemNotFound": "Item not found.Invalid Item entered",
+  "ItemDescription": "%nItem Description: %s%n",
+  "BuildSuccessful": "raft build successful",
+  "BuildNotSuccessful": "Raft build unsuccessful. You do not have the required items yet.",
+  "InvalidCraftingLocation": "You are not in a crafting location",
+  "CantGrabItem": "You need something else to grab that item",
+  "ItemNotCraftable": "Item not craftable.",
+  "CantEscape" : "You cannot escape without a raft!",
+  "Win": "Congratulations! You've escaped this island!",
+  "SolvedPuzzle": "Congratulations! You solved the puzzle! Continue in your search",
+  "UnSolvedPuzzle": "haha :) You are wrong! you will be stuck here for a century!!",
+  "PuzzlePrompt": "Solve this puzzle and escape. If you fail, you'll be stuck here for a century!!!",
+  "YouCantEatThat": "You can't eat that!",
+  "Sleep": "ZzzzzzzzZzzzzz.....You feel refreshed!",
+  "NotEnoughDropStamina": "You don't have enough stamina to drop the item",
+  "NotEnoughPickUpStamina": "You don't have enough stamina to pick up that item",
+  "GameSaved": "Game successfully saved!",
+  "GameSaveFailed": "Unable to save the game!",
+  "EatItem": "nom..nom..nom....You feel refreshed!",
+  "CantMove": "You don't have enough stamina to move",
+  "NoSavedGame": "Couldn't find the saved game. Starting a new game",
+  "PitFall": "Oooops! You fell into a pit. You feel dizzy. You must rely on your wits and brains to escape this pit",
+  "PitFallEscape": "You have been asleep for a century! That is enough punishment. You can now leave this pit."
+}

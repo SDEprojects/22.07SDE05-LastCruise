@@ -16,14 +16,12 @@ import java.util.List;
     @Type(value = GameLocation.class, name = "normal")
 })
 public class GameLocation {
-
     private String name;
     private String description;
     private String north;
     private String south;
     private String east;
     private String west;
-//    private Boolean craftingLocation;
     private Inventory items;
 
     // Constructor
@@ -82,7 +80,7 @@ public class GameLocation {
         return items;
     }
 
-    public void setItems(List<String> items) {
+    public void setItemNames(List<String> items) {
 
        Inventory result  =  new Inventory();
 
@@ -92,16 +90,11 @@ public class GameLocation {
         this.items = result;
     }
 
-//    public Boolean getCraftingLocation() {
-//        return craftingLocation;
-//    }
-//
-//    public void setCraftingLocation(Boolean craftingLocation) {
-//        this.craftingLocation = craftingLocation;
-//        if (craftingLocation){
-//
-//        }
-//    }
+
+
+    public void setItems(Inventory items) {
+        this.items = items;
+    }
 
     @Override
     public String toString() {
@@ -112,7 +105,6 @@ public class GameLocation {
             ", \n   south='" + south + '\'' +
             ", \n   east='" + east + '\'' +
             ", \n   west='" + west + '\'' +
-//            ", \n   craftingLocation=" + craftingLocation +
             ", \n   items=" + items +
             "\n }";
     }

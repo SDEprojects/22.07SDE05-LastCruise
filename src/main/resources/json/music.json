@@ -1,0 +1,9 @@
+{
+  "main": "/audio/theme2.wav",
+  "pickup": "/audio/pickup.wav",
+  "drop": "/audio/drop.wav",
+  "pitFall": "/audio/fall.wav",
+  "bell": "/audio/bell.wav",
+  "eat": "/audio/eat.wav",
+  "run": "/audio/run.wav"
+}
