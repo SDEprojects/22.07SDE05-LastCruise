@@ -27,7 +27,10 @@ public class PuzzleClient {
   }
 
 
-  public boolean test(){
+  public boolean puzzleGenerator(){
+
+    int randQuestionNumber = (int) (Math.random() * (max - min + 1) + min);
+    String stringValueOfRandomQuestionNumber = String.valueOf(randQuestionNumber);
 
     boolean correctAnswer;
 
