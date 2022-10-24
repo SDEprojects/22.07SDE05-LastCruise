@@ -38,9 +38,6 @@ public class Controller {
         view.printHelpCommands();
         view.printInstructions();
 
-//
-//        puzzleClient.test();
-
         try {
             view.printStartGamePrompt();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -132,7 +129,7 @@ public class Controller {
                         message = view.puzzleMessagePrompt();
                         updateView();
 
-                        if(puzzleClient.test()){
+                        if(puzzleClient.puzzleGenerator()){
                             message = view.solvedPuzzleMessage();
                         }else
                         {
