@@ -26,7 +26,21 @@ public class Game {
         this.player = new Player(playerName);
         gameMap.setStartLocation(gameMap.getLocations().get(STARTING_LOCATION));
     }
+    public Player getPlayer() {
+        return player;
+    }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public GameMap getGameMap() {
+        return gameMap;
+    }
+
+    public void setGameMap(GameMap gameMap) {
+        this.gameMap = gameMap;
+    }
     @JsonIgnore
     public GameLocation getCurrentLocation() {
         return gameMap.getCurrentLocation();
@@ -98,7 +112,6 @@ public class Game {
     }
 
     public boolean craftRaft() {
-// To be continued
         Map<String, Item> currLocationInventory = getCurrentLocation().getItems().getInventory();
         Set<String> requiredForRaft = GameItems.GAME_ITEMS_HASHMAP.get("raft").getRequired();
 
@@ -117,19 +130,5 @@ public class Game {
     public  void playerSleep(){
         player.sleep();
     }
-    public Player getPlayer() {
-        return player;
-    }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public GameMap getGameMap() {
-        return gameMap;
-    }
-
-    public void setGameMap(GameMap gameMap) {
-        this.gameMap = gameMap;
-    }
 }

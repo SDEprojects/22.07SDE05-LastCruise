@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class PuzzleClient {
 
-  private final int MIN;
   private final int MAX;
   private final Map<String, List> PUZZLE_TEXT;
 
@@ -19,7 +18,6 @@ public class PuzzleClient {
     Puzzle puzzle = new Puzzle();
     PUZZLE_TEXT = puzzle.getPuzzleText();
     MAX = PUZZLE_TEXT.size();
-    MIN = 1;
   }
 
 

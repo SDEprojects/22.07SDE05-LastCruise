@@ -36,7 +36,6 @@ public class Controller {
         boolean start = false;
         view.printGameBanner();
         view.printStory();
-//        view.printHelpCommands();
         view.printInstructions();
 
         try {
@@ -101,7 +100,7 @@ public class Controller {
         if (!isValidCommand(command)) {
             message = view.getInvalidCommandMessage() + view.getHelpCommands();
 
-            // PROCESS COMMAND
+        // PROCESS COMMAND
         } else {
             processCommand(command);
         }

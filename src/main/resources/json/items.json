@@ -49,8 +49,8 @@
     "edible": true
   },
   {
-    "name": "water",
-    "description": "drinkable water",
+    "name": "fish",
+    "description": "an edible fish",
     "edible": true
   }
 ]
