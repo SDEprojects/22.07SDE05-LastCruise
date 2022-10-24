@@ -13,15 +13,19 @@ Explore the island and find a way to escape! Navigate to the different sections 
 ## Commands
 To navigate type : ``go [north, south, east, west]``  
 
-To grab items type: ``grab [item name]``  
+To grab items type: ``grab/take [item name]``  
 
-To craft an item type: ``craft [item name]``  
+To craft an item type: ``craft/build [item name]``  
 
 To inspect an item type: ``inspect [item name]``
 
 To see a list of commands type: ``help``
 
 To quit the game type: ``quit``
+
+To eat items type: ``eat [item name]``
+
+To regain stamina type: ``sleep``
 
 ## Installation
 <a href="https://github.com/SDEprojects/22.07SDE05-LastCruise/releases/download/Release1.1/22.07SDE05-LastCruise_v1.1.jar">Download</a> ``.jar`` file  and type the command ``java -jar [filename]``
