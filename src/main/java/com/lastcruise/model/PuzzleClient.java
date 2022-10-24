@@ -5,50 +5,40 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class PuzzleClient {
 
-  int min = 1;
-  int max = 7;
-
-  private final Map<String, String> PUZZLE_TEXT;
+  private final int MIN;
+  private final int MAX;
+  private final Map<String, List> PUZZLE_TEXT;
 
 
   public PuzzleClient() {
     Puzzle puzzle = new Puzzle();
     PUZZLE_TEXT = puzzle.getPuzzleText();
-
+    MAX = PUZZLE_TEXT.size();
+    MIN = 1;
   }
 
 
   public boolean puzzleGenerator(){
-
-    int randQuestionNumber = (int) (Math.random() * (max - min + 1) + min);
+    Random r =  new Random();
+    boolean correctAnswer;
+    int randQuestionNumber = r.nextInt(MAX);
     String stringValueOfRandomQuestionNumber = String.valueOf(randQuestionNumber);
 
-    boolean correctAnswer;
-
-    HashMap<String, String> randomPuzzleAnswerKey = new HashMap<>();
-    // Add keys and values (QUestion, Answer)
-    randomPuzzleAnswerKey.put("1", "HAPT");
-    randomPuzzleAnswerKey.put("2", "SEVEN");
-    randomPuzzleAnswerKey.put("3", "MEENA");
-    randomPuzzleAnswerKey.put("4", "MIRROR");
-    randomPuzzleAnswerKey.put("5", "PILLOW");
-    randomPuzzleAnswerKey.put("6", "THREE");
-    randomPuzzleAnswerKey.put("7", "NINE");
-
-    List<String> list = new ArrayList<>();
-
-
+    String question = (String) PUZZLE_TEXT.get(stringValueOfRandomQuestionNumber).get(0);
+    String answerWord = (String) PUZZLE_TEXT.get(stringValueOfRandomQuestionNumber).get(1);
+    String answerLetter = (String) PUZZLE_TEXT.get(stringValueOfRandomQuestionNumber).get(2);
 
     System.out.println("Puzzle:" + randQuestionNumber);
-    System.out.println(PUZZLE_TEXT.get(stringValueOfRandomQuestionNumber));
+    System.out.println(question);
     Scanner playerResponse = new Scanner(System.in);
-    System.out.print("Enter your response here,[do not type (a) or (b)]: ");
+    System.out.print("Type your response here: ");
     String answer = playerResponse.nextLine().toUpperCase().trim();
-    correctAnswer = answer.equals(randomPuzzleAnswerKey.get(stringValueOfRandomQuestionNumber));
+    correctAnswer = answer.equalsIgnoreCase(answerWord) ||answer.equalsIgnoreCase( answerLetter);
     System.out.println(correctAnswer);
 
     return correctAnswer;
