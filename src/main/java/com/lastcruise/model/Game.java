@@ -64,8 +64,10 @@ public class Game {
 
     public void moveLocation(String[] direction)
         throws InvalidLocationException, NoEnoughStaminaException {
-        gameMap.updateCurrentLocation(direction);
         player.reduceStaminaMove();
+        gameMap.updateCurrentLocation(direction);
+
+
     }
 
     public void transferItemFromTo(Inventory from, Inventory to, String itemName)
