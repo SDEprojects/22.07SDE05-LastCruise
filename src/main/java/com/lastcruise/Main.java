@@ -12,18 +12,23 @@ import java.util.Map;
 
 public class Main {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, InterruptedException {
 
       Controller controller = new Controller();
       boolean runGame = controller.gameSetUp();
 
-      URL backgroundMusic2 = Main.class.getResource(AllSounds.ALL_SOUNDS.get("main"));
-      Music.runAudio(backgroundMusic2);
+      URL backgroundMusic = Main.class.getResource(AllSounds.ALL_SOUNDS.get("main"));
+      Music.runAudio(backgroundMusic);
 
       while(runGame){
         runGame = controller.getCommand();
         controller.updateView();
       }
-      System.out.println("Thanks for playing!");
+
+      Music.muteMusic();
+
+      // prevents cmd/terminal window from closing right away after game ends when playing JAR file
+      System.out.println("Thanks for playing! This window will soon close.");
+      Thread.sleep(5000);
   }
 }

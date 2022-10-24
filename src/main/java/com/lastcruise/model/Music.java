@@ -16,7 +16,7 @@ public class Music {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(path);
             clip = AudioSystem.getClip();
             clip.open(inputStream);
-            clip.loop(2);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
             musicControl =
                 (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 
@@ -38,6 +38,6 @@ public class Music {
     }
 
     public static void unMuteMusic(){
-        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 }
