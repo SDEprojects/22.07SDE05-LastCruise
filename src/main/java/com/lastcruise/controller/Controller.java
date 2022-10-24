@@ -47,13 +47,13 @@ public class Controller {
                 getPlayerName();
                 view.printStoryIntro(name);
                 game = new Game(name);
+                System.out.println("enter any key to continue");
+                String continueStory = reader.readLine().trim();
                 updateView();
-
             } else if (input.equals("load")) {
                 start = true;
 
                 try {
-                    view.printStoryIntro(name);
                     game = gameLoader.loadGame();
                 } catch (Exception e){
                     view.printCantLoadGame();
