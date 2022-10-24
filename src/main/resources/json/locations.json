@@ -27,7 +27,7 @@
     "description": "The sight of birds hovering, perching on and diving into this crystal-clear body of water is a sight to behold.\n The lake appears to be clean, but be careful, the water is not safe for drinking",
     "itemNames": [
       "paddle",
-      "water"
+      "fish"
     ],
     "south": "JUNGLE"
   },
